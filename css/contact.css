@@ -1,0 +1,105 @@
+/* keeping anyway */
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+/* alert boxes (hidden until message is submitted) */
+#submission-alert {
+    display: none;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 3px;
+    line-height: 10px;
+}
+
+#submission-alert p {
+    margin: 0;
+}
+
+.submission-success {
+    background: #34d968;
+}
+
+.submission-failure {
+    background: #f08843;
+}
+
+/*************** panel: http://patterntap.com/code/signup-form *****************/
+.signup-panel {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+.signup-panel i {
+    font-size: 30px;
+    line-height: 50px;
+    color: #999;
+}
+
+.signup-panel form input,.signup-panel form span {
+    height: 50px;
+}
+
+.signup-panel .welcome {
+    font-size: 26px;
+    text-align: center;
+    margin-left: 0;
+}
+
+.signup-panel p {
+    font-size: 13px;
+    font-weight: 200;
+    margin-left: 25%;
+}
+
+.signup-panel .button {
+    width: 100%;
+}
+
+/* modifications taken from http://codepen.io/rexkirby/pen/Fdnlz */
+#name {
+    background-image: url('http://rexkirby.com/kirbyandson/images/name.svg');
+    background-size: 30px 30px;
+    background-position: 11px 8px;
+    background-repeat: no-repeat;
+}
+
+#emailFrom {
+    background-image:
+        url('http://rexkirby.com/kirbyandson/images/email.svg');
+    background-size: 30px 30px;
+    background-position: 11px 8px;
+    background-repeat: no-repeat;
+}
+
+#message {
+    resize: vertical;
+    height: 150px;
+    background-image:
+        url('http://rexkirby.com/kirbyandson/images/comment.svg');
+    background-size: 30px 30px;
+    background-position: 11px 8px;
+    background-repeat: no-repeat;
+}
+
+.feedback-input {
+    color: #3C3C3C;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    border-radius: 0px;
+    line-height: 22px;
+    padding: 13px 13px 13px 54px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 3px solid transparent;
+}
+
+span.mandatory-field {
+    color: #008CBA;
+}

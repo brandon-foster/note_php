@@ -1,0 +1,7 @@
+/* iframe for resume */
+.iframe-resume {
+    min-height: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}

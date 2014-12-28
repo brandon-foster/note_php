@@ -1,0 +1,50 @@
+body {
+    font-family: proxima-nova, sans-serif;
+    font-size: 22px;
+    color: #3b3b3b;
+    margin: 0;
+    padding: 0;
+    font-size: 22px;
+}
+
+/* BEGIN spacer: used for extra space after the navigation. see includes/nav-include.php */
+.spacer {
+    height: 20px;
+}
+/* END spacer */
+
+#links-section {
+    background-color: ff0000;
+}
+
+/* BEGIN buttons */
+.button-list {
+    list-style-type: none;
+    margin: 0;
+}
+
+.button-list a {
+    width: 100%;
+    margin-bottom: 4px;
+}
+/* END buttons */
+
+/* BEGIN typography */
+p.faded-footer-text {
+    color: #808080;
+    font-size: x-small;
+    text-align: center;
+}
+
+p.faded-footer-text a {
+    color: #808080;
+    text-decoration: underline;
+}
+/* END typography */
+
+/* BEGIN foundation modifications */
+#main-nav-row {
+    margin-bottom: 20px;
+}
+
+/* END foundation modifications */
