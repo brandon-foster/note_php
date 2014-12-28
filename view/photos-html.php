@@ -4,61 +4,36 @@ if ($photosDataSet === false) {
     trigger_error('Oops: view/photos-html.php needs a PhotosData object $photosData.');
 }
 
-$photosOutput = "<pre>";
-$photosOutput .= print_r($photosData->getAlbums(), true);
-$photosOutput .= "</pre>";
-$photosOutput .= "
-<div class='path-container'>
-  <div class='row'>
-    <div class='large-12 columns '>
-      <h1>Albums</h1>
-    </div>
-  </div>
-  <div class='row path-item'>
-    <div class='large-7 push-5 columns'>
-      <div class='circle circle-left '></div>
-    </div>
-    <div class='large-5 pull-7 columns path-text left'>
-      <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-      <p>Something that happened in the past or will happen in the future Lorem ipsum dolor sit amet, consectetur adipiscing elit.  a est. Suspendisse potenti. Sc lorem pretium, molestie</p>
-      <a href='#'>Show something cool &raquo;</a>
-    </div>
-  </div>
-  <div class='row path-item'>
-    <div class='large-7 columns'>
-      <div class='circle circle-right right'></div>
-    </div>
-    <div class='large-5 columns path-text right'>
-      <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-      <p>Something that happened in the past or will happen in the future Lorem ipsum dolor sit amet, consectetur adipiscing elit.  a est. Suspendisse potenti. Sc lorem pretium, molestie</p>
-      <a href='#'>Show something cool &raquo;</a>
-    </div>
-  </div>
-  <div class='row get-feedback path-item'>
-    <div class='large-7 push-5 columns'>
-      <div class='circle circle-left'></div>
-    </div>
-    <div class='large-5 pull-7 columns path-text left'>
-      <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-      <p>Something that happened in the past or will happen in the future Lorem ipsum dolor sit amet, consectetur adipiscing elit.  a est. Suspendisse potenti. Sc lorem pretium, molestie</p>
-      <a href='#'>Show something cool &raquo;</a>
-    </div>
-  </div>
-  <div class='row land-job path-item'>
-    <div class='large-7 columns'>
-      <div class='circle circle-right right'></div>
-    </div>
-    <div class='large-5 columns path-text right'>
-      <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-      <p>Something that happened in the past or will happen in the future Lorem ipsum dolor sit amet, consectetur adipiscing elit.  a est. Suspendisse potenti. Sc lorem pretium, molestie</p>
-      <a href='#'>Show something cool &raquo;</a>
-    </div>
-  </div>
-  <span class='line hide-for-small'></span>
-</div>";
-return $photosOutput;?>
+// $photosOutput = "<pre>";
+// $photosOutput .= print_r($photosData->getAlbums(), true);
+// $photosOutput .= "</pre>";
 
-<?php
+// count number of albums
+$albumsHTML = "";
+$albums = $photosData->getAlbums();
+$size = count($albums);
+for ($i = 0; $i < $size; $i++) {
+    $current = $albums[$i];
+    $albumsHTML .= "
+    <a href='index.php?page=photos&album={$current->getName()}'>
+    <div class='large-4 small-6 columns'>
+        <a class='th'><img alt='{$current->getName()}' src='{$current->getDirectory()}/{$current->getFileNames()[0]}'></a>
+        <div class='panel'>
+            <p>{$current->getName()} &middot; {$current->getSize()} photos</p>
+        </div>
+    </div>
+    </a>";
+}
+
+$photosOutput = "
+<!-- thumnails -->
+<div class='row'>
+
+    {$albumsHTML}
+
+</div>";
+return $photosOutput;
+
 // $photosOutput = "
 // <!-- inspired by http://alijafarian.com/responsive-image-grids-using-css/  -->
 // <div class='wrapper'>

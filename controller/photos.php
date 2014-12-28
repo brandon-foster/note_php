@@ -13,14 +13,12 @@ $pageData->setTitle('Photos');
 $pageData->setBodyClass('body-photos');
 // google fonts
 $pageData->addCss('http://fonts.googleapis.com/css?family=Oswald');
-// custom css
-$pageData->addCss('css/albums.css');
 // fancybox css
 $pageData->addCss('res/fancybox/jquery.fancybox.css', "media='screen'");
 // add album timeline styles
 // fancybox js
 $pageData->addJs('res/fancybox/jquery.fancybox.pack.js');
-// Ali Jafarian's code
+// Ali Jafarian's js code
 $pageData->addScriptCode("
 $(document).ready(function() {
 	$('.grid-nav li a').on('click', function(event){
@@ -35,7 +33,7 @@ $(document).ready(function() {
 	});
 });
 ");
-// fancybox code
+// fancybox js code
 $pageData->addScriptCode("
     $(document).ready(function() {
         $('.fancybox').fancybox({
