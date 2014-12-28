@@ -5,11 +5,37 @@ class PhotosData {
     const ALBUMS_DIR = 'img/gallery'; 
 
     private $albums = array();
-
+    
+    /*
+     * Set the albums field
+     */
+    public function __construct() {
+        $this->createAlbums();
+    }
+    
     /*
      * Returns an array of Album objects
      */
     public function getAlbums() {        
+        return $this->albums;
+    }
+    
+    /*
+     * Return the album object with the name $name
+     */
+    public function getAlbumByName($name) {
+        foreach ($this->albums as $album) {
+            if ($album->getName() === $name) {
+                return $album;
+            }
+        }
+        // album not found
+    }
+    
+    /*
+     * Populate $this->albums
+     */
+    private function createAlbums() {
         $albumNames = array();
         
         $handle = opendir(self::ALBUMS_DIR);
@@ -26,11 +52,10 @@ class PhotosData {
         for ($i = 0; $i < $size; $i ++) {
             $directory = self::ALBUMS_DIR . '/' . $albumNames[$i];
             $albumFiles = scandir($directory);
-            
-            $album = new Album($directory, $albumNames[$i], count($albumFiles));
+        
+            $name = $albumNames[$i];
+            $album = new Album($directory, $name, count($albumFiles));
             array_push($this->albums, $album);
         }
-        
-        return $this->albums;
     }
 }

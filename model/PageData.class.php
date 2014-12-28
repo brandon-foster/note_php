@@ -9,6 +9,7 @@ class PageData {
     private $footer = "";
     private $js = "";
     private $scriptCode = "";
+    private $scriptCodeHead = "";
     
     public function addCss($href, $attrValuePairs=NULL) {
         $this->css .= "<link rel='stylesheet' type='text/css' href='{$href}' {$attrValuePairs} />";
@@ -72,6 +73,13 @@ class PageData {
     }
     public function getScriptCode() {
         return $this->scriptCode;
+    }
+    
+    public function addScriptCodeHead($code) {
+        $this->scriptCodeHead .= "<script type='text/javascript'>{$code}</script>";
+    }
+    public function getScriptCodeHead() {
+        return $this->scriptCodeHead;
     }
 
 }

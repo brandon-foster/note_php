@@ -1,4 +1,8 @@
 <?php
+function redirect404() {
+    header('Location: 404.php');
+}
+
 include_once 'model/PageData.class.php';
 
 // PageData object: it's members are used in the template
@@ -31,7 +35,7 @@ if ($pageRequested) {
     // do not load controller unless they are in the list of valid controllers,
     // to prevent against requests like index.php?page=controller-does-not-exist
     if ($controller !== 'photos') {
-        header('Location: 404.php');
+        redirect404();
     }
 }
 
