@@ -1,11 +1,11 @@
 <?php
 ////////////////////
 // DB connection
-$host = "host_here";
-$dbName = "db_name_here";
+$host = "localhost";
+$dbName = "photos";
 $dbInfo = "mysql:host={$host};dbname={$dbName}";
-$dbUser = "user_here";
-$dbPassword = "password_here";
+$dbUser = "root";
+$dbPassword = "root";
 
 $db = "";
 try {

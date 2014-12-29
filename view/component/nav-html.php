@@ -1,4 +1,75 @@
 <?php
+$navItemsSet = isset($navItems);
+if ($navItemsSet === false) {
+    trigger_error('Oops: view/nav-html.php needs $navItems.');
+}
+
+// store parent and child items separately
+$parentItems = array();
+$childrenItems = array();
+while ($item = $navItems->fetch(PDO::FETCH_ASSOC)) {
+    if ($item['parent_id'] === '0') {
+        array_push($parentItems, $item);
+    } else {
+        array_push($childrenItems, $item);
+    }
+}
+
+/*
+ * Return a slug form of a string.
+ * Example:
+ * "Admin Panel" becomes 'admin-panel'
+ */
+function strToSlug($string) {
+    $out = strtolower($string);
+    str_replace(' ', '-', $out);
+    return $out;
+}
+
+$navHTML = "";
+$size = count($parentItems);
+for ($i = 0; $i < $size; $i++) {
+    $item = $parentItems[$i];
+    
+    $linkId = strToSlug($item['name']);
+    $href = $item['href'];
+    $name = $item['name'];
+    
+    $navHTML .= "
+    <li id='link-{$linkId}' class='has-dropdown'>
+        <a href='{$href}'>{$name}</a>";
+
+    
+    // for each child, if the child's parent_id matches $item['id'], then create a sub-navigation item
+    $navHTML .= "
+        <ul class='dropdown'>";
+    
+    foreach ($childrenItems as $child) {
+        if ($child['parent_id'] === $item['id']) {
+            $childLinkId = strToSlug($child['name']);
+            $childHref = $child['href'];
+            $childName = $child['name'];
+            
+            $navHTML .= "
+            <li id='link-{$childLinkId}'>
+                <a href='{$childHref}'>
+                    {$childName}
+                </a>
+            </li>";
+
+        }
+    }
+    $navHTML .= "
+        </ul>";
+}
+
+
+// $out = "<pre>PARENT ITEMS<br />";
+// $out .= print_r($parentItems, true);
+// $out .= "PARENT ITEMS<br />";
+// $out .= print_r($childrenItems, true);
+// $out .= "</pre>";
+
 return "
 <!-- see /js/nav.js -->
 <div id='main-nav-row' class='contain-to-grid fixed'>
@@ -17,34 +88,7 @@ return "
         <section class='top-bar-section'>
             <!-- Left Nav Section -->
             <ul class='left'>
-                <li id='link-photos' class='has-dropdown'><a
-                    href='/index.php?page=photos'>Photos</a>
-                    <ul class='dropdown'>
-                        <li id='link-five-days-gratitude'><a
-                            href='index.php?page=photos&album=five-days-gratitude'>Five
-                                Days of Gratitude</a></li>
-                        <li id='link-vt-freshman-fall'><a
-                            href='index.php?page=photos&album=vt-freshman-fall'>VT
-                                Freshman Fall</a></li>
-                        <!-- <li class='has-dropdown'><a href='#'>Second link
-                                in dropdown</a>
-                            <ul class='dropdown'>
-                                <li><a href='#'>aaha yes</a></li>
-                                <li class='has-dropdown'><a href='#'>nested
-                                        dropdown</a>
-                                    <ul class='dropdown'>
-                                        <li><a
-                                            href='nested-dropdown.php'>nested
-                                                inception</a></li>
-                                        <li><a href='#'>nested inception
-                                                2</a></li>
-                                    </ul></li>
-                                <li><a href='#'>aaha yes</a></li>
-                            </ul></li> -->
-                    </ul></li>
-
-                <li id='link-contact'><a href='/index.php?page=contact'>Contact</a></li>
-
+                {$navHTML}
             </ul>
 
         </section>

@@ -3,10 +3,12 @@ function redirect404() {
     header('Location: 404.php');
 }
 
-include_once 'model/PageData.class.php';
+// PDO for db interactions
+include_once 'db.php';
 
 // PageData object: it's members are used in the template
 // view/page-template-html.php, which is 'include'ed from this file
+include_once 'model/PageData.class.php';
 $pageData = new PageData();
 
 // FOUNDATION AND CUSTOM CSS
@@ -22,7 +24,7 @@ $pageData->addScriptCode('$(document).foundation();');
 $pageData->addJs('js/nav.js');
 
 // NAVIGATION
-$nav = include_once 'view/component/nav-html.php';
+$nav = include_once 'controller/nav.php';
 $pageData->setNav($nav);
 
 // CONTENT

@@ -16,7 +16,9 @@ $pageData->addScriptCode('$(document).foundation();');
 $pageData->addJs('js/nav.js');
 
 // NAVIGATION
-$nav = include_once 'view/component/nav-html.php';
+// PDO for db interactions
+include_once 'db.php';
+$nav = include_once 'controller/nav.php';
 $pageData->setNav($nav);
 
 $content = "
