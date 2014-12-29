@@ -2,6 +2,7 @@
 function redirect404() {
     header('Location: 404.php');
 }
+include_once 'util/StringFunctions.php';
 
 // PDO for db interactions
 include_once 'db.php';
@@ -21,7 +22,6 @@ $pageData->addJs('res/foundation/js/vendor/jquery.js');
 $pageData->addJs('res/foundation/js/vendor/fastclick.js');
 $pageData->addJs('res/foundation/js/foundation.min.js');
 $pageData->addScriptCode('$(document).foundation();');
-$pageData->addJs('js/nav.js');
 
 // NAVIGATION
 $nav = include_once 'controller/nav.php';

@@ -15,7 +15,7 @@ if ($albumParamSet) {
     // redirect if no album found
     if ($album === NULL) {
         redirect404();
-    }    
+    }
     $output = include_once 'view/album-html.php';    
 } else {
     $output = include_once 'view/photos-html.php';

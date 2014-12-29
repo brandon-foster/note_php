@@ -15,60 +15,68 @@ while ($item = $navItems->fetch(PDO::FETCH_ASSOC)) {
     }
 }
 
-/*
- * Return a slug form of a string.
- * Example:
- * "Admin Panel" becomes 'admin-panel'
- */
-function strToSlug($string) {
-    $out = strtolower($string);
-    str_replace(' ', '-', $out);
-    return $out;
-}
+$navJsCode = "";
 
 $navHTML = "";
 $size = count($parentItems);
 for ($i = 0; $i < $size; $i++) {
     $item = $parentItems[$i];
     
-    $linkId = strToSlug($item['name']);
+    $linkId = StringFunctions::spaceToDash($item['name']);
+    $linkId = strtolower($linkId);
     $href = $item['href'];
     $name = $item['name'];
     
+    $hasChild = ($item['has_child'] === '1' ? true : false);
+    if ($hasChild) {
+        $dropDownClass = "class='has-dropdown'";
+    } else {
+        $dropDownClass = "";
+    }
+    
+    $navJsCode .= "
+        $('body.body-{$linkId} li#link-{$linkId}').addClass('active');
+    ";
+    
     $navHTML .= "
-    <li id='link-{$linkId}' class='has-dropdown'>
+    <li id='link-{$linkId}' {$dropDownClass}>
         <a href='{$href}'>{$name}</a>";
 
     
     // for each child, if the child's parent_id matches $item['id'], then create a sub-navigation item
-    $navHTML .= "
-        <ul class='dropdown'>";
-    
-    foreach ($childrenItems as $child) {
-        if ($child['parent_id'] === $item['id']) {
-            $childLinkId = strToSlug($child['name']);
-            $childHref = $child['href'];
-            $childName = $child['name'];
-            
-            $navHTML .= "
-            <li id='link-{$childLinkId}'>
-                <a href='{$childHref}'>
-                    {$childName}
-                </a>
-            </li>";
-
+    if ($hasChild) {
+        $navHTML .= "
+            <ul class='dropdown'>";
+        
+        foreach ($childrenItems as $child) {
+            if ($child['parent_id'] === $item['id']) {
+                $childLinkId = StringFunctions::spaceToDash($child['name']);
+                $childLinkId = strtolower($childLinkId);
+                $childHref = $child['href'];
+                $childName = $child['name'];
+                
+                $navJsCode .= "
+                $('body.body-{$childLinkId} li#link-{$childLinkId}').addClass('active');
+                ";
+                
+                $navHTML .= "
+                <li id='link-{$childLinkId}'>
+                    <a href='{$childHref}'>
+                        {$childName}
+                    </a>
+                </li>";
+        
+            }
         }
+        $navHTML .= "
+            </ul>";
     }
+    
     $navHTML .= "
-        </ul>";
+    </li>";
 }
 
-
-// $out = "<pre>PARENT ITEMS<br />";
-// $out .= print_r($parentItems, true);
-// $out .= "PARENT ITEMS<br />";
-// $out .= print_r($childrenItems, true);
-// $out .= "</pre>";
+$pageData->addScriptCode($navJsCode);
 
 return "
 <!-- see /js/nav.js -->
@@ -78,7 +86,7 @@ return "
         <ul class='title-area'>
             <li class='name'>
                 <h1>
-                    <a href='/'>Login App</a>
+                    <a href='/'>Title</a>
                 </h1>
             </li>
             <!-- Remove the class 'menu-icon' to get rid of menu icon. Take out 'Menu' to just have icon alone -->

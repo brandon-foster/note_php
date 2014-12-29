@@ -1,4 +1,6 @@
 <?php
+include_once 'util/StringFunctions.php';
+
 include_once 'model/PageData.class.php';
 $pageData = new PageData();
 $pageData->setTitle('Page not found');
@@ -13,7 +15,6 @@ $pageData->addJs('res/foundation/js/vendor/jquery.js');
 $pageData->addJs('res/foundation/js/vendor/fastclick.js');
 $pageData->addJs('res/foundation/js/foundation.min.js');
 $pageData->addScriptCode('$(document).foundation();');
-$pageData->addJs('js/nav.js');
 
 // NAVIGATION
 // PDO for db interactions
