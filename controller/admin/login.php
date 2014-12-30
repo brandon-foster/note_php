@@ -1,6 +1,6 @@
 <?php
 $pageData->addCss('res/foundation-icons/foundation-icons.css');
-$pageData->addCss('css/admin/login.css');
+$pageData->addCss('css/admin/login-signup.css');
 
 include_once 'model/table/UsersTable.class.php';
 $usersTable = new UsersTable($db);
@@ -14,10 +14,10 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
 
     // get user from table
-    $userResult = $usersTable->getUser($username);
-    $userResult = $userResult->fetch(PDO::FETCH_ASSOC);
-
-    $page = 'dashboard-html';
+    $usernameExists = $usersTable->usernameExists($username);    
+    if ($usernameExists) {
+        $page = 'dashboard-html';
+    }    
 }
 
 $loginOut = include_once "view/admin/{$page}.php";

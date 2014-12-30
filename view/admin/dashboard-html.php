@@ -9,6 +9,9 @@ $out = "<h1>Dashboard</h1>";
 
 if ($userResult === false) {
     $out .= 'No user found.';
+} 
+if ($userResult === true) {
+    $out .= 'User found';
 }
 
 $out .= "<pre>";

@@ -1,4 +1,9 @@
 <?php
+// set title
+$pageData->setTitle('Log In');
+// set body class
+$pageData->setBodyClass('body-log-in');
+
 $out = "
 <!-- view/admin/login-html.php depends on css/admin/login.css -->
 <div class='row center'>
