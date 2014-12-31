@@ -8,6 +8,9 @@ if (isset($_SESSION['user'])) {
 $pageData->addCss('res/foundation-icons/foundation-icons.css');
 $pageData->addCss('css/admin/login-signup.css');
 
+// javascript input focus code (added to $pageData before include)
+$jsFocusCode = '$("input[name=username]").focus();';
+
 // handle form submission
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
@@ -35,13 +38,26 @@ if (isset($_POST['login'])) {
                 redirect('admin.php?page=dashboard');
         } else {
             $loginMessage = "<p class='failure-message'>Oops. Wrong password. Try again.</p>";
+            
+            // set js to focus on password field
+            $jsFocusCode = '$("input[name=password]").focus();';
+
+            $usernameExists = true;
         }
     }
     // username does not exists
     else {
         $loginMessage = "<p class='failure-message'>Username <em>{$username}</em> does not exist.</p>";
+        
+        // clear username field
+        $jsFocusCode .= '$("input[name=username]").val("");';
+
+        $usernameExists = false;
     }
 }
+
+// set js focus script
+$pageData->addScriptCode($jsFocusCode);
 
 $loginOut = include_once 'view/admin/login-html.php';
 return $loginOut;

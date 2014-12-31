@@ -24,8 +24,9 @@ $pageData->setTitle('Sign Up');
 $pageData->setBodyClass('body-sign-up');
 // focus on appropriate input field
 
-// $jsCode = "";
-// $pageData->addScriptCode();
+// javascript input focus code (added to $pageData before return'ed)
+// focus on email by default
+$jsFocusCode = '$("input[name=email]").focus();';
 
 if (isset($_POST['signup'])) {
     $email = $_POST['email'];
@@ -37,6 +38,10 @@ if (isset($_POST['signup'])) {
     if ($emailExists) {
         // send back to sign up page
         $signupMessage = "<p class='failure-message'>Email address <em>{$email}</em> already exists</p>";
+        
+        // set js to focus on cleared email field
+        $jsFocusCode .= '$("input[name=email]").val("");';
+        
         $page = 'signup-html';
     }
     else {
@@ -46,6 +51,10 @@ if (isset($_POST['signup'])) {
         if ($usernameExists) {
             // send back to sign up page
             $signupMessage = "<p class='failure-message'>User <em>{$username}</em> already exists</p>";
+
+            $jsFocusCode = '$("input[name=username]").focus();';
+            $jsFocusCode .= '$("input[name=username]").val("");';
+            
             $page = 'signup-html';
         }
         else {
@@ -69,6 +78,9 @@ if (isset($_POST['signup'])) {
         }
     }
 }
+
+// set js focus script
+$pageData->addScriptCode($jsFocusCode);
 
 $emailInput = "
     <div class='row collapse'>

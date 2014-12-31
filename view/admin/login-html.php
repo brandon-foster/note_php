@@ -1,12 +1,10 @@
 <?php
 // if signup fails, show message and fill in email and username with previously
 // submitted values
-$loginMessageSet = isset($loginMessage);
-$usernameSet = isset($username);
-if ($loginMessageSet === false) {
+if (!isset($loginMessage)) {
     $loginMessage = '';
 }
-if ($usernameSet === false) {
+if (!isset($username) || !$usernameExists) {
     $username = '';
 }
 
