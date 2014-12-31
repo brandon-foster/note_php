@@ -22,8 +22,9 @@ if ($emailSet === false) {
 $pageData->setTitle('Sign Up');
 // set body class
 $pageData->setBodyClass('body-sign-up');
-// focus on appropriate input field
-
+// add css
+$pageData->addCss('res/foundation-icons/foundation-icons.css');
+$pageData->addCss('css/admin/pretty-form.css');
 // javascript input focus code (added to $pageData before return'ed)
 // focus on email by default
 $jsFocusCode = '$("input[name=email]").focus();';
@@ -93,7 +94,6 @@ $emailInput = "
     </div>";
 
 $out = "
-<!-- view/admin/login-html.php depends on css/admin/login.css -->
 <div class='row center'>
         <div class='signup-panel'>
             <p class='welcome'>Sign Up</p>
