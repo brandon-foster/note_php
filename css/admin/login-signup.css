@@ -24,8 +24,7 @@
 }
 
 .signup-panel .welcome,
-.signup-panel .signup-message {
-
+.signup-panel .failure-message {
     text-align: center;
     margin-left: 0;
 }
@@ -34,7 +33,7 @@
     font-size: 26px;
 }
 
-.signup-panel .signup-message {
+.signup-panel .failure-message {
     color: #ffffff;
     background-color: #007095;
     padding: 10px;

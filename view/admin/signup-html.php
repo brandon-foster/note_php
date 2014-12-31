@@ -36,7 +36,7 @@ if (isset($_POST['signup'])) {
     $emailExists = $usersTable->emailExists($email);
     if ($emailExists) {
         // send back to sign up page
-        $signupMessage = "<p class='signup-message'>Email address <em>{$email}</em> already exists</p>";
+        $signupMessage = "<p class='failure-message'>Email address <em>{$email}</em> already exists</p>";
         $page = 'signup-html';
     }
     else {
@@ -45,7 +45,7 @@ if (isset($_POST['signup'])) {
         $usernameExists = $usersTable->usernameExists($username);
         if ($usernameExists) {
             // send back to sign up page
-            $signupMessage = "User <em>{$username}</em> already exists";
+            $signupMessage = "<p class='failure-message'>User <em>{$username}</em> already exists</p>";
             $page = 'signup-html';
         }
         else {
@@ -54,8 +54,7 @@ if (isset($_POST['signup'])) {
             $successBool = $usersTable->createUser($username, $password, $email);
             if ($successBool) {
                 // get the newly created user
-                $result = $usersTable->getUserByName($username);
-                $user = $result->fetch(PDO::FETCH_ASSOC);
+                $user = $usersTable->getUserByName($username);
 
                 // unset user's hash and salt
                 unset($user['hash']);
@@ -77,7 +76,7 @@ $emailInput = "
             <span class='prefix'><i class='fi-mail'></i> <em class='required'></em></span>
         </div>
         <div class='small-10  columns'>
-            <input type='text' name='email' value='{$email}' placeholder='email' required />
+            <input type='email' name='email' value='{$email}' placeholder='email' required />
         </div>
     </div>";
 

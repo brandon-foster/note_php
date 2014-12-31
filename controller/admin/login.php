@@ -1,32 +1,45 @@
 <?php
+// handle already logged in user
+if (isset($_SESSION['user'])) {
+    // send to dashboard
+    redirect('admin.php?page=dashboard');
+}
+
 $pageData->addCss('res/foundation-icons/foundation-icons.css');
 $pageData->addCss('css/admin/login-signup.css');
-
-include_once 'model/table/UsersTable.class.php';
-$usersTable = new UsersTable($db);
 
 // handle form submission
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     
+    include_once 'model/table/UsersTable.class.php';
+    $usersTable = new UsersTable($db);
+    
     // check if username exists
     if ($usersTable->usernameExists($username)) {
         // so far so good, validate login
         $checkLogin = $usersTable->validateLogin($username, $password);
-    
         if ($checkLogin === true) {
-            $checkLogin = 'SUCCESS, IT WORKED';
+                // get the user who's logging in
+                $user = $usersTable->getUserByName($username);
+
+                // unset user's hash and salt
+                unset($user['hash']);
+                unset($user['salt']);
+
+                // set the user in the session
+                $_SESSION['user'] = $user;
+
+                // redirect to dashboard
+                redirect('admin.php?page=dashboard');
         } else {
-            $checkLogin = 'OOPS, IT DIDN\'T WORK';
+            $loginMessage = "<p class='failure-message'>Oops. Wrong password. Try again.</p>";
         }
-//         if ($validLogin) {
-//             redirect('admin.php?page=dashboard');
-//         }
     }
     // username does not exists
     else {
-        $loginMessage = "Username <em>{$username}</em> does not exist.";
+        $loginMessage = "<p class='failure-message'>Username <em>{$username}</em> does not exist.</p>";
     }
 }
 

@@ -67,7 +67,9 @@ class UsersTable extends Table {
         	':username' => $name
         );
         
-        return $this->makeStatement($sql, $params);
+        $statement = $this->makeStatement($sql, $params);
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row;
     }
     
     public function createUser($username, $password, $email) {
@@ -93,7 +95,8 @@ class UsersTable extends Table {
             ':email'    => $email
         );
 
-        return $this->makeStatement($sql, $params);
+        $statement = $this->makeStatement($sql, $params);
+        return $statement;
     }
 
     private function makeSaltedHash($password, $salt) {

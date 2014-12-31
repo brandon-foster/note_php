@@ -9,14 +9,6 @@ if ($loginMessageSet === false) {
 if ($usernameSet === false) {
     $username = '';
 }
-if (!isset($checkLogin)) {
-    $checkLogin = '';
-    $checkLoginOut = '';
-} else {
-    $checkLoginOut = "<pre>";
-    $checkLoginOut .= print_r($checkLogin, true);
-    $checkLoginOut .= "</pre>";
-}
 
 // set title
 $pageData->setTitle('Log In');
@@ -30,7 +22,6 @@ $out = "
         <div class='signup-panel'>
             <p class='welcome'>Log In</p>
             {$loginMessage}
-            {$checkLoginOut}
             <form action='admin.php' method='POST'>
                 <div class='row collapse'>
                     <div class='small-2 columns'>

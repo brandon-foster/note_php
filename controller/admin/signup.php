@@ -1,4 +1,9 @@
 <?php
+// handle already logged in user
+if (isset($_SESSION['user'])) {
+    redirect('admin.php?page=dashboard');
+}
+
 $pageData->addCss('res/foundation-icons/foundation-icons.css');
 $pageData->addCss('css/admin/login-signup.css');
 
