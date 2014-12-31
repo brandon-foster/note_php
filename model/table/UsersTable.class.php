@@ -2,6 +2,23 @@
 include_once 'model/table/Table.class.php';
 
 class UsersTable extends Table {
+    public function validateLogin($username, $userPassword) {
+        // get salt from the user
+        $salt = $this->getSaltByUsername($username);
+
+        $correctHash = $this->getHashByUsername($username);
+
+        // check if the stored hash in the user table matches the 
+        // generated hash of the user-submitted $userPassword and the
+        // $username's salt
+        $userHash = $this->makeSaltedHash($userPassword, $salt);
+
+        if ($correctHash === $userHash) {
+            return true;
+        }
+        return false;        
+    }
+    
     public function emailExists($email) {
         $sql = "
             SELECT 1
@@ -40,13 +57,26 @@ class UsersTable extends Table {
         return true;
     }
 
+    public function getUserByName($name) {
+        $sql = "
+            SELECT id, username, hash, salt, email
+            FROM users
+            WHERE username = :username";
+        
+        $params = array(
+        	':username' => $name
+        );
+        
+        return $this->makeStatement($sql, $params);
+    }
+    
     public function createUser($username, $password, $email) {
         $sql = "
             INSERT INTO users (
-                username, password, salt, email
+                username, hash, salt, email
             ) VALUES (
                 :username,
-                :password,
+                :hash,
                 :salt,
                 :email
             )";
@@ -58,11 +88,11 @@ class UsersTable extends Table {
 
         $params = array(
         	':username' => $username,
-            ':password' => $hash,
+            ':hash' => $hash,
             ':salt'     => $salt,
             ':email'    => $email
         );
-        
+
         return $this->makeStatement($sql, $params);
     }
 
@@ -78,5 +108,35 @@ class UsersTable extends Table {
         }
 
         return $hash;
+    }
+    
+    private function getSaltByUsername($username) {
+        $sql = '
+            SELECT salt
+            FROM users
+            WHERE username = :username';
+        
+        $params = array(
+        	':username' => $username
+        );
+        
+        $statement = $this->makeStatement($sql, $params);
+        $row = $statement->fetch();
+        return $row['salt'];
+    }
+    
+    private function getHashByUsername($username) {
+        $sql = '
+            SELECT hash
+            FROM users
+            WHERE username = :username';
+        
+        $params = array(
+        	':username' => $username
+        );
+        
+        $statement = $this->makeStatement($sql, $params);
+        $row = $statement->fetch();
+        return $row['hash'];
     }
 }

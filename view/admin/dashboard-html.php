@@ -1,21 +1,20 @@
 <?php
-$userResultSet = isset($userResult);
-if ($userResultSet === false) {
-    trigger_error('Oops: view/admin/dashboard-html.php needs $userResult.');
+$userSet = isset($user);
+if ($user === false) {
+    trigger_error('Oops: view/admin/dashboard-html.php needs $user.');
 }
-$pageData->setTitle('Dashboard');
 
-$out = "<h1>Dashboard</h1>";
+// set title
+$pageData->setTitle('dashboard');
+// set body class
+$pageData->setBodyClass('body-dashboard');
 
-if ($userResult === false) {
-    $out .= 'No user found.';
-} 
-if ($userResult === true) {
-    $out .= 'User found';
-}
+$out = "<div class='row'>";
+$out .= "<h1>Dashboard</h1>";
 
 $out .= "<pre>";
-$out .= print_r($userResult, true);
+$out .= print_r($user, true);
 $out .= "</pre>";
+$out .= "</div>";
 
 return $out;

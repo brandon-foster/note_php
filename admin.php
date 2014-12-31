@@ -2,10 +2,16 @@
 function redirect404() {
     header('Location: 404.php');
 }
+function redirect($url) {
+    header("Location: {$url}");
+}
 include_once 'util/StringFunctions.php';
 
 // PDO for db interactions
 include_once 'db.php';
+
+// start or resume session
+session_start();
 
 // PageData object: it's members are used in the template
 // view/page-template-html.php, which is 'include'ed from this file

@@ -5,8 +5,5 @@ $pageData->addCss('css/admin/login-signup.css');
 include_once 'model/table/UsersTable.class.php';
 $usersTable = new UsersTable($db);
 
-// set default page, if login fails or form not submitted
-$page = 'signup-html';
-// $signupOut = include_once 'controller/admin/signup-router.php';
-$signupOut = include_once "view/admin/{$page}.php";
+$signupOut = include_once "view/admin/signup-html.php";
 return $signupOut;

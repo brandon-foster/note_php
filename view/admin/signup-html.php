@@ -3,6 +3,8 @@ $usersTableSet = isset($usersTable);
 if ($usersTableSet == false) {
     trigger_error('Oops: view/admin/signup-html.php needs a UsersTable object $userTable.');
 }
+// if signup fails, show message and fill in email and username with previously
+// submitted values
 $signupMessageSet = isset($signupMessage);
 $emailSet = isset($email);
 $usernameSet = isset($username);
@@ -49,8 +51,22 @@ if (isset($_POST['signup'])) {
         else {
             // so far so good.
             // now, create new user
-            $usersTable->createUser($username, $password, $email);
-            $page = 'signup-success-html';
+            $successBool = $usersTable->createUser($username, $password, $email);
+            if ($successBool) {
+                // get the newly created user
+                $result = $usersTable->getUserByName($username);
+                $user = $result->fetch(PDO::FETCH_ASSOC);
+
+                // unset user's hash and salt
+                unset($user['hash']);
+                unset($user['salt']);
+
+                // set the user in the session
+                $_SESSION['user'] = $user;
+
+                // redirect to dashboard
+                redirect('admin.php?page=dashboard');
+            }
         }
     }
 }
