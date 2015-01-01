@@ -20,8 +20,6 @@ if (isset($_POST['userimage'])) {
     
 }
 
-
-
 $pageData->addScriptCode($jsFocusCode);
 
 $out = "

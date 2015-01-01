@@ -16,25 +16,6 @@ if (isset($_POST['signup'])) {
     $usernameExists = $usersTable->usernameExists($username);
 
     $signupMessage = '';
-//     // check that all fields were filled out
-//     if (strlen($email) === 0 || strlen($username) === 0 || strlen($password) === 0) {
-//         // send back to sign up page
-//         $signupMessage .= "
-//             <p class='failure-message'>Please enter all required fields.</p>";
-        
-//         if (empty($password)) {
-//             // focus on password
-//             $jsFocusCode = '$("input[name=password]").focus();';
-//         }
-//         if (empty($username)) {
-//             // focus on password
-//             $jsFocusCode = '$("input[name=username]").focus();';
-//         }
-//         if (empty($email)) {
-//             // focus on email
-//             $jsFocusCode = '$("input[name=email]").focus();';
-//         }
-//     }
     if ($emailExists && $usernameExists) {
         // send back to sign up page
         $signupMessage .= "
@@ -74,15 +55,15 @@ if (isset($_POST['signup'])) {
         $signupMessage .= "
             <p class='failure-message'>Please enter all required fields.</p>";
         
-        if (empty($password)) {
+        if (strlen($password) === 0) {
             // focus on password
             $jsFocusCode = '$("input[name=password]").focus();';
         }
-        if (empty($username)) {
+        if (strlen($username) === 0) {
             // focus on password
             $jsFocusCode = '$("input[name=username]").focus();';
         }
-        if (empty($email)) {
+        if (strlen($email) === 0) {
             // focus on email
             $jsFocusCode = '$("input[name=email]").focus();';
         }

@@ -33,7 +33,7 @@ $emailInput = "
             <span class='prefix'><i class='fi-mail'></i> <em class='required'></em></span>
         </div>
         <div class='small-10  columns'>
-            <input type='email' name='email' value='{$email}' placeholder='email' />
+            <input type='email' name='email' value='{$email}' placeholder='email' required />
         </div>
     </div>";
 
@@ -49,7 +49,7 @@ $out = "
                         <span class='prefix'><i class='fi-torso'></i> <em class='required'></em></span>
                     </div>
                     <div class='small-10  columns'>
-                        <input type='text' name='username' value='{$username}' placeholder='username' />
+                        <input type='text' name='username' value='{$username}' placeholder='username' required />
                     </div>
                 </div>
                 <div class='row collapse'>
@@ -57,7 +57,7 @@ $out = "
                         <span class='prefix'><i class='fi-lock'></i> <em class='required'></em></span>
                     </div>
                     <div class='small-10 columns '>
-                        <input type='password' name='password' placeholder='password' />
+                        <input type='password' name='password' placeholder='password' required />
                     </div>
                 </div>
                 <input type='submit' name='signup' value='Sign up' class='button' />

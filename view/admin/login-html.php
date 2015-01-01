@@ -4,7 +4,7 @@
 if (!isset($loginMessage)) {
     $loginMessage = '';
 }
-if (!isset($username) || !$usernameExists) {
+if (!isset($username)) {
     $username = '';
 }
 
@@ -37,7 +37,7 @@ $out = "
                     <span class='prefix'><i class='fi-torso'></i> <em class='required'></em></span>
                 </div>
                 <div class='small-10  columns'>
-                    <input type='text' name='username' value='{$username}' placeholder='username' required />
+                    <input type='text' name='username' value='{$username}' placeholder='username' />
                 </div>
             </div>
             <div class='row collapse'>
@@ -45,7 +45,7 @@ $out = "
                     <span class='prefix'><i class='fi-lock'></i> <em class='required'></em></span>
                 </div>
                 <div class='small-10 columns '>
-                    <input type='password' name='password' placeholder='password' required />
+                    <input type='password' name='password' placeholder='password' />
                 </div>
             </div>
             <input type='submit' name='login' value='Log in' class='button' />
