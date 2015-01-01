@@ -1,4 +1,7 @@
 <?php
+// start or resume session
+session_start();
+
 include_once 'util/StringFunctions.php';
 
 include_once 'model/PageData.class.php';

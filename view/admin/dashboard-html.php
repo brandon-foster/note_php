@@ -5,7 +5,7 @@ if ($user === false) {
 }
 
 // set title
-$pageData->setTitle('dashboard');
+$pageData->setTitle('Dashboard');
 // set body class
 $pageData->setBodyClass('body-dashboard');
 // add css

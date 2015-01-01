@@ -8,16 +8,20 @@ if ($navItemsSet === false) {
 $parentItems = array();
 $childrenItems = array();
 while ($item = $navItems->fetch(PDO::FETCH_ASSOC)) {
-    if ($item['parent_id'] === '0') {
-        array_push($parentItems, $item);
-    } else {
-        array_push($childrenItems, $item);
+    // if the item is admin only, skip it if the user is not logged in
+    if (!($item['admin_only'] && !isset($_SESSION['user']))) {
+        if ($item['parent_id'] === '0') {
+            array_push($parentItems, $item);
+        } else {
+            array_push($childrenItems, $item);
+        }
     }
 }
 
 $navJsCode = "";
 
-$navHTML = "";
+$rightNavHTML = "";
+$leftNavHTML = "";
 $size = count($parentItems);
 for ($i = 0; $i < $size; $i++) {
     $item = $parentItems[$i];
@@ -38,14 +42,15 @@ for ($i = 0; $i < $size; $i++) {
         $('body.body-{$linkId} li#link-{$linkId}').addClass('active');
     ";
     
-    $navHTML .= "
+    $itemHTML = "";
+    $itemHTML .= "
     <li id='link-{$linkId}' {$dropDownClass}>
         <a href='{$href}'>{$name}</a>";
 
     
     // for each child, if the child's parent_id matches $item['id'], then create a sub-navigation item
     if ($hasChild) {
-        $navHTML .= "
+        $itemHTML .= "
             <ul class='dropdown'>";
         
         foreach ($childrenItems as $child) {
@@ -59,7 +64,7 @@ for ($i = 0; $i < $size; $i++) {
                 $('body.body-{$childLinkId} li#link-{$childLinkId}').addClass('active');
                 ";
                 
-                $navHTML .= "
+                $itemHTML .= "
                 <li id='link-{$childLinkId}'>
                     <a href='{$childHref}'>
                         {$childName}
@@ -68,12 +73,19 @@ for ($i = 0; $i < $size; $i++) {
         
             }
         }
-        $navHTML .= "
+        $itemHTML .= "
             </ul>";
     }
     
-    $navHTML .= "
+    $itemHTML .= "
     </li>";
+    
+    // append the itemHTML to the appropriate *NavHTML
+    if ($item['admin_only']) {
+        $rightNavHTML .= $itemHTML;
+    } else {
+        $leftNavHTML .= $itemHTML;
+    }
 }
 
 $pageData->addScriptCode($navJsCode);
@@ -94,9 +106,14 @@ return "
         </ul>
 
         <section class='top-bar-section'>
+            <!-- Right Nav Section -->
+            <ul class='right'>
+                {$rightNavHTML}
+            </ul>        
+        
             <!-- Left Nav Section -->
             <ul class='left'>
-                {$navHTML}
+                {$leftNavHTML}
             </ul>
 
         </section>
