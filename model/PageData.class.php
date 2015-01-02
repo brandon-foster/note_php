@@ -69,7 +69,7 @@ class PageData {
     }
 
     public function addScriptCode($code) {
-        $this->scriptCode .= "<script type='text/javascript'>{$code}</script>";
+        $this->scriptCode .= "<script type='text/javascript'>\$(document).ready(function() { {$code} });</script>";
     }
     public function getScriptCode() {
         return $this->scriptCode;

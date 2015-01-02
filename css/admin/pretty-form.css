@@ -19,8 +19,13 @@
 }
 
 .signup-panel form input,
-.signup-panel form span {
+.signup-panel form span,
+.signup-panel form select {
     height: 50px;
+}
+
+.signup-panel form textarea {
+    height: 14em;
 }
 
 .signup-panel .welcome,

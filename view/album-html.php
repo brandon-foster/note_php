@@ -86,13 +86,11 @@ $pageData->addScriptCode('
 
 // fancybox js code
 $pageData->addScriptCode("
-    $(document).ready(function() {
-        $('.fancybox').fancybox({
-            openEffect: 'fade',
-            closeEffect: 'fade',
-            prevEffect: 'fade',
-            nextEffect: 'fade'
-        });
+    $('.fancybox').fancybox({
+        openEffect: 'fade',
+        closeEffect: 'fade',
+        prevEffect: 'fade',
+        nextEffect: 'fade'
     });
 ");
 

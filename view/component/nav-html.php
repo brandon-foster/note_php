@@ -94,7 +94,7 @@ return "
 <!-- see /js/nav.js -->
 <div id='main-nav-row' class='contain-to-grid fixed'>
 
-    <nav class='top-bar' data-topbar>
+    <nav class='top-bar' data-topbar role='navigation'>
         <ul class='title-area'>
             <li class='name'>
                 <h1>

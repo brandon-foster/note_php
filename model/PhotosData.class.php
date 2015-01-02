@@ -7,7 +7,7 @@ class PhotosData {
     private $albums = array();
     
     /*
-     * Set the albums field
+     * Populate the $albums field upon construction
      */
     public function __construct() {
         $this->createAlbums();
