@@ -1,4 +1,7 @@
 <?php
+if (!isset($_SESSION['user'])) {
+    redirect('admin.php?page=login');
+}
 include_once 'model/Uploader.class.php';
 
 // check if form was submitted
