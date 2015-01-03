@@ -1,6 +1,20 @@
 <?php
 include_once 'model/table/Table.class.php';
 class PostsTable extends Table {
+    public function getPostByName($title) {
+        $sql = '
+            SELECT id, title, category_id, text, date_created
+            FROM posts
+            WHERE title = :title';
+        
+        $params = array(
+                ':title' => $title,
+        );
+        
+        $result = $this->makeStatement($sql, $params);
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
     
     /*
      * Return posts, with only previews of the text, the first 
@@ -11,7 +25,6 @@ class PostsTable extends Table {
             FROM posts
             WHERE category_id = :category_id';
         
-        // get category_id from $category
         $params = array(
                 ':category_id' => $categoryId,
         );

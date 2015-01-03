@@ -55,12 +55,14 @@ class PostCategoriesTable extends Table {
     public function incrementCount($id) {
         $sql = '
             UPDATE post_categories
-            SET count = :count';
+            SET count = :count
+            WHERE id = :id';
     
         $count = $this->getCount($id);
         $count++;
         $params = array(
-                ':count' => $count
+                ':count' => $count,
+                ':id' => $id
         );
 
         $this->makeStatement($sql, $params);

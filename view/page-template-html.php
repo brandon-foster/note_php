@@ -21,10 +21,10 @@ return "
 
     <!-- content here -->
     {$pageData->getContent()}
-    
+
     <!-- footer here -->
     {$pageData->getFooter()}
-    
+
     <!-- scripts here -->
     {$pageData->getJs()}
     {$pageData->getScriptCode()}

@@ -24,15 +24,16 @@ while ($post = $categoryPosts->fetch(PDO::FETCH_ASSOC)) {
 
     $titleDashed = strtolower($postTitle);
     $titleDashed = StringFunctions::spaceToDash($titleDashed);
-    $href = "index.php?page=posts&category={$categoryNameDashed}&title={$titleDashed}";
-    
+    $href = "index.php?page=categories&category={$categoryNameDashed}&title={$titleDashed}";
+
+    $ellipses = (strlen($postPreviewText) === 40) ? '... (<em>read more</em>)' : '';
     $categoryPostsHTML .= "
         <div class='row'>
             <div class='panel'>
                 <a href='{$href}'>
                     <h3>{$postTitle}</h3>
                     <p>{$postDate}</p> 
-                    <p>{$postPreviewText}</p>
+                    <p>{$postPreviewText}{$ellipses}</p>
                 </a>
             </div>
         </div>";
@@ -40,10 +41,14 @@ while ($post = $categoryPosts->fetch(PDO::FETCH_ASSOC)) {
 
 $quantity = $category['count'];
 $postOrPosts = StringFunctions::singularOrPlural('post', $quantity);
+$isOrAre = StringFunctions::isOrAre($quantity);
 $out = "
-    <div class='row'>
-        <h1>{$category['name']}</h1>
-        <p>There are {$quantity} {$postOrPosts} in this category.</p>
-    </div>";
+    <div class='small-10 columns'>";
+$out .= "
+        <div class='row'>
+            <h1>{$category['name']}</h1>
+            <p>There {$isOrAre} {$quantity} {$postOrPosts} in this category.</p>
+        </div>";
 $out .= $categoryPostsHTML;
+$out .= '</div>';
 return $out;

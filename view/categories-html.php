@@ -1,12 +1,12 @@
 <?php
 if (!isset($categoryItems)) {
-    trigger_error('Oops: view/posts-html.php needs a $categoryItems.');
+    trigger_error('Oops: view/categories-html.php needs a $categoryItems.');
 }
 
 // set title
-$pageData->setTitle('Posts');
+$pageData->setTitle('Categories');
 // set body class
-$pageData->setBodyClass('body-posts');
+$pageData->setBodyClass('body-categories');
 // css
 $pageData->addCss('css/posts.css');
 
@@ -21,7 +21,7 @@ while ($item = $categoryItems->fetch(PDO::FETCH_ASSOC)) {
     $categoryQueryParam = StringFunctions::spaceToDash($categoryQueryParam);
     $categoryQueryParam = strtolower($categoryQueryParam);
     
-    $href = "index.php?page=posts&category={$categoryQueryParam}";
+    $href = "index.php?page=categories&category={$categoryQueryParam}";
     
     $categoriesHTML .= "
     <div class='row'>

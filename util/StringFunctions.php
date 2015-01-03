@@ -31,4 +31,15 @@ class StringFunctions {
             return $word;
         }
     }
+    
+    /*
+     * Returns the string 'is' or the string 'are', depending on the $quantity
+     */
+    public static function isOrAre($quantity) {
+        if ($quantity == 1) {
+            return 'is';
+        } else {
+            return 'are';
+        }
+    }
 }

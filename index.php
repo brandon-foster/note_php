@@ -40,7 +40,7 @@ if ($pageRequested) {
     // do not load controller unless they are in the list of valid controllers,
     // to prevent against requests like index.php?page=controller-does-not-exist
     if ($controller !== 'photos'
-        && $controller !== 'posts') {
+        && $controller !== 'categories') {
         redirect404();
     }
 }
