@@ -12,18 +12,36 @@ class PostCategoriesTable extends Table {
         $result = $this->makeStatement($sql);
         return $result;
     }
+    
+    /*
+     * Return the category specified by name
+     */
+    public function getCategoryByName($name) {
+        $sql = '
+            SELECT id, name, count
+            FROM post_categories
+            WHERE name = :name';
+        
+        $params = array(
+                ':name' => $name
+        );
+        
+        $result = $this->makeStatement($sql, $params);
+        $row = $result->fetch();
+        return $row;
+    }
 
     /*
      * Return the category_id of the category with the specified name
      */
-    public function getCategoryIdByName($categoryName) {
+    public function getCategoryIdByName($name) {
         $sql = '
             SELECT id
             FROM post_categories
             WHERE name = :name';
 
         $params = array(
-                ':name' => $categoryName
+                ':name' => $name
         );
 
         $result = $this->makeStatement($sql, $params);
