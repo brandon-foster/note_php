@@ -1,6 +1,6 @@
 <?php
-if(!isset($categoriesItems)) {
-    trigger_error('Oops: view/admin/add-post-html.php needs $categoriesItems.');
+if(!isset($categoryItems)) {
+    trigger_error('Oops: view/admin/add-post-html.php needs $categoryItems.');
 }
 if (!isset($addPostMessage)) {
     $addPostMessage = '';
@@ -34,7 +34,7 @@ $pageData->addScriptCode($jsFocusCode);
 
 // get existing categories from CategoriesTable object
 $categoryOptionsHTML = '';
-while ($item = $categoriesItems->fetch(PDO::FETCH_ASSOC)) {
+while ($item = $categoryItems->fetch(PDO::FETCH_ASSOC)) {
     $categoryName = $item['name'];
     $categoryCount = $item['count'];
     

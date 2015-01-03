@@ -24,6 +24,6 @@ if (isset($_POST['add-post'])) {
     $addPostMessage = "<p class='failure-message'>New post <em><strong>{$title}</strong></em> successfully added.</p>";
 }
 
-$categoriesItems = $postCategoriesTable->getCategories();
+$categoryItems = $postCategoriesTable->getCategories();
 $out = include_once 'view/admin/add-post-html.php';
 return $out;

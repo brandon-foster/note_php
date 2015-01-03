@@ -19,4 +19,16 @@ class StringFunctions {
         $string = str_replace("-", " ", $string);
         return $string;
     }
+    
+    /*
+     * Return a string of $word with 's' appended to it if the $quantity is not
+     * equal to 1
+     */
+    public static function singularOrPlural($word, $quantity) {
+        if ($quantity != 1) {
+            return $word . 's';
+        } else {
+            return $word;
+        }
+    }
 }

@@ -17,7 +17,6 @@ if (isset($_POST['upload'])) {
             // check if the user submitted a custom file name, to set $imageName
             if (!empty($_POST['user-image-name'])) {
                 $userImageName = $_POST['user-image-name'];
-//                 $userImageName = 'cat.png';
                 $imageName = $userImageName;
                 $uploader = new Uploader('user-image', $userImageName);
             } else {

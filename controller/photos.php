@@ -21,9 +21,4 @@ if ($albumParamSet) {
     $output = include_once 'view/photos-html.php';
 }
 
-// redirect if query string is such that no view was tied in
-if (isset($output) === false) {
-    redirect404();
-}
-
 return $output;
