@@ -12,8 +12,17 @@ if (isset($_GET['category'])) {
     $categoriesOut .= "<div class='row'>";
 
     // set the secondary navigation menu, with the current category highlighted
-    // provide secondary-nav-html with $secondaryNavItems
-    // $sideNavItems = ;
+    // provide secondary-nav-html with $secondaryNavItems: all the nav items 
+    // whose parent_id is the id of the "Categories" item
+    function getSideNavItems($db) {
+        include_once 'model/table/NavItemsTable.class.php';
+        $navItemsTable = new NavItemsTable($db);
+        $parentId = $navItemsTable->getIdByName('Categories');
+        $sideNavItems = $navItemsTable->getNavChildrenOf($parentId);
+        return $sideNavItems;
+    }
+
+    $sideNavItems = getSideNavItems($db);
     $sideNav = include_once 'view/component/side-nav-html.php';
     $categoriesOut .= $sideNav;
 

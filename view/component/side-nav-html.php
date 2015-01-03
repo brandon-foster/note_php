@@ -1,15 +1,23 @@
 <?php
-// if (!isset($secondaryNavItems)) {
-//     trigger_error('Oops: view/component side-nav-html.php needs a $sideNavItems.');
-// }
+if (!isset($sideNavItems)) {
+    trigger_error('Oops: view/component side-nav-html.php needs a $sideNavItems.');
+}
+$listItemsHTML = '';
+while ($item = $sideNavItems->fetch(PDO::FETCH_ASSOC)) {
+    $active = '';
+    
+    if ($_GET['category'] === StringFunctions::formatAsQueryString($item['name'])) {
+        $active = "class='active'";
+    }
+    $href = $item['href'];
+    $name = $item['name'];
+    $listItemsHTML .= "<li {$active}><a href='{$href}'>{$name}</a></li>";
+}
 $out = "
 <div class='small-2 columns'>";
 $out .= "
     <ul class='side-nav'>
-      <li class='active'><a href='#'>Nav Item 1</a></li>
-      <li><a href='#'>Nav Item 2</a></li>
-      <li><a href='#'>Nav Item 3</a></li>
-      <li><a href='#'>Nav Item 4</a></li>
+        {$listItemsHTML}
     </ul>";
 $out .= "
 </div>";

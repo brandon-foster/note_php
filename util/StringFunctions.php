@@ -1,6 +1,15 @@
 <?php
 class StringFunctions {
     /*
+     * Return a stringwith spaces converted to dashes, and lowercase.
+     */
+    public static function formatAsQueryString($text) {
+        $result = StringFunctions::spaceToDash($text);
+        $result = strtolower($result);
+        return $result;
+    }
+    
+    /*
      * Return a string with spaces replaced with dashes.
      * Example:
      * "Admin panel" becomes 'Admin-panel'
