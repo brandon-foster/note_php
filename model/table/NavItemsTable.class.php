@@ -2,6 +2,25 @@
 include_once 'model/table/Table.class.php';
 
 class NavItemsTable extends Table {
+    public function addNavItem($name, $parentId, $hasChild, $href, $adminOnly) {
+        $sql = "
+            INSERT INTO nav_items
+                (name, parent_id, has_child, href, admin_only)
+            VALUES
+                (:name, :parent_id, :has_child, :href, :admin_only)";
+
+        $params = array(
+                ':name' => $name,
+                ':parent_id' => $parentId,
+                ':has_child' => $hasChild,
+                ':href' => $href,
+                ':admin_only' => $adminOnly
+        );
+
+        $result = $this->makeStatement($sql, $params);
+        return $result;
+    }
+
     public function getIdByName($name) {
         $sql = "
             SELECT id

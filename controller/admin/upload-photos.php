@@ -3,7 +3,6 @@ if (!isset($_SESSION['user'])) {
     redirect('admin.php?page=login');
 }
 include_once 'model/Uploader.class.php';
-include_once 'model/table/ImagesTable.class.php';
 
 // provide view with AlbumsTable object
 include_once 'model/table/AlbumsTable.class.php';
@@ -34,11 +33,17 @@ if (isset($_POST['upload'])) {
             }
             
             $albumName = StringFunctions::formatAsQueryString($selectedAlbum);
+
+            // attempt to store image in the file system
             $uploader->saveInDir("img/gallery/{$albumName}");
-            
             try {
                 $uploader->save();
                 $uploadMessage = "<p class='failure-message'>Image <em><strong>{$imageName}</strong></em> successfully uploaded into album <em><strong>{$albumName}</strong></em></p>";
+                
+                // store image details in db
+                include_once 'model/table/ImagesTable.class.php';
+                $imagesTable = new ImagesTable($db);
+                $imagesTable->addImage($imageName, $albumId);
             } catch (Exception $ex) {
                 $uploadMessage = "<p class='failure-message'>{$ex->getMessage()}</p>";
             }

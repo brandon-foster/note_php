@@ -23,6 +23,7 @@ class Uploader {
     // move file if ready, else throw exception
     public function save() {
         if ($this->readyToUpload()) {
+            // place image in file system
             move_uploaded_file(
 	          $this->fileData,
 	          "{$this->destination}/" . basename($this->filename)

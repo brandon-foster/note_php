@@ -17,7 +17,7 @@ $pageData->addCss('css/admin/pretty-form.css');
 // javascript input focus code (added to $pageData before return'ed)
 // focus on album-name by default
 if (!isset($jsFocusCode)) {
-    $jsFocusCode = '$("select[name=album-name]").focus();';
+    $jsFocusCode = '$("input[name=album-name]").focus();';
 }
 // set js focus script
 $pageData->addScriptCode($jsFocusCode);

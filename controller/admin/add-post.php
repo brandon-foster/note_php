@@ -1,4 +1,5 @@
 <?php
+// handle not logged in user
 if (!isset($_SESSION['user'])) {
     redirect('admin.php?page=login');
 }
