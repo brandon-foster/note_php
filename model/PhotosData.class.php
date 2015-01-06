@@ -49,11 +49,11 @@ class PhotosData {
         
         // create each Album object and store it in $this->albums
         $size = count($albumNames);
-        for ($i = 0; $i < $size; $i ++) {
+        for ($i = 0; $i < $size; $i++) {
             $directory = self::ALBUMS_DIR . '/' . $albumNames[$i];
             $albumFiles = scandir($directory);
-        
             $name = $albumNames[$i];
+
             $album = new Album($directory, $name, count($albumFiles));
             array_push($this->albums, $album);
         }

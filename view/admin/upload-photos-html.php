@@ -2,11 +2,14 @@
 if (!isset($_SESSION['user'])) {
     redirect('admin.php?page=login');
 }
+if (!isset($albumsTable)) {
+    trigger_error('Oops: view/admin/upload-photos-html.php needs an AlbumsTable object $albumsTable');
+}
 if (!isset($uploadMessage)) {
     $uploadMessage = '';
 }
-if (!isset($photosData)) {
-    trigger_error('Oops: view/admin/upload-photos-html.php needs a PhotosData object $photosData');
+if (!isset($selectedAlbum)) {
+    $selectedAlbum = '';
 }
 
 // set title
@@ -19,29 +22,37 @@ $pageData->addCss('css/admin/pretty-form.css');
 // javascript input focus code (added to $pageData before return'ed)
 // focus on album-name by default
 if (!isset($jsFocusCode)) {
-    $jsFocusCode = '$("select[name=album-name]").focus();';
-}
-if (!isset($selected)) {
-    $selected = '';
+    $jsFocusCode = '$("select[name=album-id]").focus();';
 }
 
 // set js focus script
 $pageData->addScriptCode($jsFocusCode);
 
-// get existing albums from PhotosData object
-$albums = $photosData->getAlbums();
+$albums = $albumsTable->getAlbums();
 $albumOptionsHTML = '';
-$numAlbums = count($albums);
-for ($i = 0; $i < $numAlbums; $i++) {
-    $currentAlbum = $albums[$i];
-    $albumName = $currentAlbum->getName();
-    if (!empty($selected) && $albumName == $selected) {
+
+while ($album = $albums->fetch(PDO::FETCH_ASSOC)) {
+    $albumName = $album['name'];
+    if (!empty($selectedAlbum) && $albumName == $selectedAlbum) {
         $selected = "selected='selected'";
     } else {
         $selected = '';
     }
-    $albumOptionsHTML .= "<option value='{$albumName}' {$selected}>{$albumName}</option>";
+    
+    $albumId = $album['id'];
+    $albumOptionsHTML .= "<option value='{$albumId}' {$selected}>{$albumName}</option>";
 }
+// $numAlbums = count($albums);
+// for ($i = 0; $i < $numAlbums; $i++) {
+//     $currentAlbum = $albums[$i];
+//     $albumName = $currentAlbum->getName();
+//     if (!empty($selected) && $albumName == $selected) {
+//         $selected = "selected='selected'";
+//     } else {
+//         $selected = '';
+//     }
+//     $albumOptionsHTML .= "<option value='{$albumName}' {$selected}>{$albumName}</option>";
+// }
 
 $out = "
 <div class='row center'>
@@ -54,7 +65,7 @@ $out = "
                     <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
                 </div>
                 <div class='small-10 columns '>
-                    <select name='album-name'>
+                    <select name='album-id'>
                         <option value=''>Select album</option>
                         {$albumOptionsHTML}
                     </select>

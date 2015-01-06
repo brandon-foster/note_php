@@ -3,13 +3,19 @@ if (!isset($_SESSION['user'])) {
     redirect('admin.php?page=login');
 }
 include_once 'model/Uploader.class.php';
+include_once 'model/table/ImagesTable.class.php';
 
-// check if form was submitted
+// provide view with AlbumsTable object
+include_once 'model/table/AlbumsTable.class.php';
+$albumsTable = new AlbumsTable($db);
+
+// check if new image form was submitted
 if (isset($_POST['upload'])) {
 
-    // check that album name was submitted
-    if (isset($_POST['album-name']) && strlen($_POST['album-name']) !== 0) {
-        $selected = $_POST['album-name'];
+    // check that album id was submitted
+    if (isset($_POST['album-id']) && strlen($_POST['album-id']) !== 0) {
+        $albumId = $_POST['album-id'];
+        $selectedAlbum = $albumsTable->getAlbumNameById($albumId);
         
         // check that the user selected an image to upload
         if (file_exists($_FILES['user-image']['tmp_name'])) {
@@ -19,12 +25,15 @@ if (isset($_POST['upload'])) {
                 $userImageName = $_POST['user-image-name'];
                 $imageName = $userImageName;
                 $uploader = new Uploader('user-image', $userImageName);
-            } else {
+            }
+            // if the user did not submit a custom file name, use the name of 
+            // the file he/she is uploading
+            else {
                 $imageName = $_FILES['user-image']['name'];
                 $uploader = new Uploader('user-image');
             }
             
-            $albumName = $_POST['album-name'];
+            $albumName = StringFunctions::formatAsQueryString($selectedAlbum);
             $uploader->saveInDir("img/gallery/{$albumName}");
             
             try {
@@ -53,10 +62,6 @@ if (isset($_POST['upload'])) {
 //         unlink($whichImage);
 //     }
 // }
-
-// create PhotosData object for upload-photos-html.php to use
-include_once 'model/PhotosData.class.php';
-$photosData = new PhotosData();
 
 $out = include_once 'view/admin/upload-photos-html.php';
 return $out;

@@ -51,7 +51,8 @@
 }
 
 .signup-panel .button {
-    margin-left: 35%;
+    /*margin-left: 35%;*/
+    width: 100%;
 }
 
 .required::before {

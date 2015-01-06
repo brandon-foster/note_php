@@ -46,6 +46,7 @@ if ($getSet) {
         && $controller !== 'signup'
         && $controller !== 'dashboard'
         && $controller !== 'upload-photos'
+        && $controller !== 'add-album'
         && $controller !== 'add-post'
         && $controller !== 'logout') {
         redirect404();

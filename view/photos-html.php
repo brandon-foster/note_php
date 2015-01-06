@@ -21,13 +21,26 @@ for ($i = 0; $i < $size; $i++) {
         $albumsHTML .= "<div class='row'>";
     }
 
-    $albumsHTML .= "
-    <div class='large-4 small-6 columns'>
-        <a class='th' href='index.php?page=photos&album={$current->getName()}'><img alt='{$current->getName()}' src='{$current->getDirectory()}/{$current->getFileNames()[0]}'></a>
+    // if empty album
+    if (count($current->getFileNames()) === 0) {
+        $albumsHTML .= "
+        <div class='large-4 small-6 columns'>
+        <a class='th' href='index.php?page=photos&album={$current->getName()}'><img alt='{$current->getName()}' src='http://placehold.it/295x221'></a>
         <div class='panel'>
-            <p>{$current->getName()} &middot; {$current->getSize()} photos</p>
+        <p>{$current->getName()} &middot; {$current->getSize()} photos</p>
         </div>
-    </div>";
+        </div>";
+    }
+    // if nonempty album 
+    else {
+        $albumsHTML .= "
+        <div class='large-4 small-6 columns'>
+            <a class='th' href='index.php?page=photos&album={$current->getName()}'><img alt='{$current->getName()}' src='{$current->getDirectory()}/{$current->getFileNames()[0]}'></a>
+            <div class='panel'>
+                <p>{$current->getName()} &middot; {$current->getSize()} photos</p>
+            </div>
+        </div>";
+    }
 
     // ensure that rows are of three columns each
     if ($i % 3 === 2) {
