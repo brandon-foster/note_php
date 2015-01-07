@@ -58,7 +58,7 @@ $out = "
                     <span class='prefix'><i class='fi-clipboard'></i> <em class='required'></em></span>
                 </div>
                 <div class='small-10  columns'>
-                    <input type='text' name='title' value='{$title}' placeholder='title' maxlength='255' required />
+                    <input type='text' name='title' value='{$title}' placeholder='title' maxlength='255' />
                 </div>
             </div>
             <div class='row collapse'>
@@ -66,7 +66,7 @@ $out = "
                     <span class='prefix'><i class='fi-list-thumbnails'></i> <em class='required'></em></span>
                 </div>
                 <div class='small-10  columns'>
-                    <select name='category' required>
+                    <select name='category'>
                         <option value=''>Select category</option>
                         {$categoryOptionsHTML}
                     </select>
@@ -77,7 +77,7 @@ $out = "
                     <span class='prefix'><i class='fi-pencil'></i> <em class='required'></em></span>
                 </div>
                 <div class='small-10 columns'>
-                    <textarea name='text' placeholder='Compose new post...' required>{$text}</textarea>
+                    <textarea name='text' placeholder='Compose new post...'>{$text}</textarea>
                 </div>
             </div>
             <input type='submit' name='add-post' value='Add post' class='button' />

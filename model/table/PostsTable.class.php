@@ -1,6 +1,27 @@
 <?php
 include_once 'model/table/Table.class.php';
 class PostsTable extends Table {
+    public function titleExistsInCategory($title, $categoryId) {
+        $sql = '
+            SELECT id
+            FROM posts
+            WHERE title = :title
+                AND category_id = :category_id';
+        
+        $params = array(
+                ':title' => $title,
+                ':category_id' => $categoryId
+                
+        );
+
+        $result = $this->makeStatement($sql, $params);
+        if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public function getPostByName($title) {
         $sql = '
             SELECT id, title, category_id, text, date_created
@@ -8,7 +29,7 @@ class PostsTable extends Table {
             WHERE title = :title';
         
         $params = array(
-                ':title' => $title,
+                ':title' => $title
         );
         
         $result = $this->makeStatement($sql, $params);
@@ -45,6 +66,6 @@ class PostsTable extends Table {
             ':text' => $text
         );
 
-        $this->makeStatement($sql, $params);
+        return $this->makeStatement($sql, $params);
     }
 }
