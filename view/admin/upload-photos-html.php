@@ -42,17 +42,6 @@ while ($album = $albums->fetch(PDO::FETCH_ASSOC)) {
     $albumId = $album['id'];
     $albumOptionsHTML .= "<option value='{$albumId}' {$selected}>{$albumName}</option>";
 }
-// $numAlbums = count($albums);
-// for ($i = 0; $i < $numAlbums; $i++) {
-//     $currentAlbum = $albums[$i];
-//     $albumName = $currentAlbum->getName();
-//     if (!empty($selected) && $albumName == $selected) {
-//         $selected = "selected='selected'";
-//     } else {
-//         $selected = '';
-//     }
-//     $albumOptionsHTML .= "<option value='{$albumName}' {$selected}>{$albumName}</option>";
-// }
 
 $out = "
 <div class='row center'>
