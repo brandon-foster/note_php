@@ -13,7 +13,7 @@ if ($albumParamSet) {
     $properAlbumName = StringFunctions::dashToSpace($properAlbumName);
     $album = $albumsTable->getAlbumByName($properAlbumName);
     // redirect if no album found
-    if ($album === NULL) {
+    if (empty($album)) {
         redirect404();
     }
     $output = include_once 'view/album-html.php';

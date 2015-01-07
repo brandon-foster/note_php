@@ -2,6 +2,20 @@
 include_once 'model/table/Table.class.php';
 
 class ImagesTable extends Table {
+    public function getImagesWithAlbumId($albumId) {
+        $sql = "
+            SELECT id, name, album_id, caption, location, album_cover, date
+            FROM images
+            WHERE album_id = :album_id";
+        
+        $params = array(
+        	':album_id' => $albumId
+        );
+        
+        $result = $this->makeStatement($sql, $params);
+        return $result;
+    }
+    
     public function setAlbumCoverValue($id, $value) {
         $sql = "
             UPDATE images

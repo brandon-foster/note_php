@@ -44,7 +44,7 @@ if (isset($_POST['upload'])) {
                 include_once 'model/table/ImagesTable.class.php';
                 $imagesTable = new ImagesTable($db);
                 
-                // set as album cover if user requested, but first unset current album cover
+                // set as album cover if user requested
                 if (isset($_POST['album-cover'])) {
                     // get id of current album cover
                     $currentAlbumCoverId = $imagesTable->getAlbumCoverIdByAlbumId($albumId);

@@ -4,7 +4,7 @@ if ($albumSet === false) {
     trigger_error('Oops: view/photos-html.php needs an Album object $album.');
 }
 // set title
-$albumName = $album->getName();
+$albumName = $album['name'];
 $albumNameProper = StringFunctions::dashToSpace($albumName);
 $albumNameProper =  ucwords($albumNameProper);
 $pageData->setTitle("Album &middot; {$albumNameProper}");
@@ -80,7 +80,7 @@ $pageData->addScriptCode('
       applyLayout();
 
       // Capture scroll event.
-      $window.bind("scroll.wookmark", onScroll);
+      // $window.bind("scroll.wookmark", onScroll);
     })(jQuery);
 ');
 
@@ -101,13 +101,20 @@ $galleryHTML = "
             <ul id='tiles'>
 ";
 
-$photoNames = $album->getFileNames();
-foreach ($photoNames as $name) {
-    $location = "{$album->getDirectory()}/{$name}";
+
+// get images from images table
+include_once 'model/table/ImagesTable.class.php';
+$imagesTable = new ImagesTable($db);
+$images = $imagesTable->getImagesWithAlbumId($album['id']);
+
+while ($image = $images->fetch(PDO::FETCH_ASSOC)) {
+    $albumDir = StringFunctions::formatAsQueryString($album['name']);
+    $imgLocation = "img/gallery/{$albumDir}/{$image['name']}";
+
     $galleryHTML .= "
     <li>
-        <a href='{$location}' class='fancybox' data-fancybox-group='gallery' title='title here'>
-            <img src='{$location}' width='282' height='118'>
+        <a href='{$imgLocation}' class='fancybox' data-fancybox-group='gallery' title='title here'>
+            <img src='{$imgLocation}' width='282' height='118'>
         </a>
         <div class='post-info'>
             <div class='post-basic-info'>
