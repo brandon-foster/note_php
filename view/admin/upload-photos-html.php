@@ -81,7 +81,11 @@ $out = "
             </div>
             <div class='row collapse'>
                 <div class='small-12  columns'>
+                    <em class='required'></em>
                     <input type='file' name='user-image' />
+                    
+                    <input type='checkbox' name='album-cover' value='yes' id='album-cover-checkbox' />
+                    <label for='album-cover-checkbox'>Set as album cover</label>
                 </div>
             </div>
             <input type='submit' name='upload' value='Upload' class='button' />

@@ -1,23 +1,26 @@
 <?php
-$pageDataSet = isset($pageData);
-if ($pageDataSet === false) {
-    trigger_error('Oops: controller/photos.php needs a PageData object $pageData');
-}
+// include_once 'model/PhotosData.class.php';
+// $photosData = new PhotosData();
 
-include_once 'model/PhotosData.class.php';
-$photosData = new PhotosData();
+include_once 'model/table/AlbumsTable.class.php';
+$albumsTable = new AlbumsTable($db);
 
 // tie in the appropriate view, either the albums page 'view/photos-html.php',
 // or the album page 'view/album-html.php'
 $albumParamSet = isset($_GET['album']);
 if ($albumParamSet) {
-    $album = $photosData->getAlbumByName($_GET['album']);
+    $properAlbumName = $_GET['album'];
+    $properAlbumName = StringFunctions::dashToSpace($properAlbumName);
+    $album = $albumsTable->getAlbumByName($properAlbumName);
     // redirect if no album found
     if ($album === NULL) {
         redirect404();
     }
-    $output = include_once 'view/album-html.php';    
+    $output = include_once 'view/album-html.php';
 } else {
+    // provide view with $albums
+    $albums = $albumsTable->getAlbums();
+
     $output = include_once 'view/photos-html.php';
 }
 

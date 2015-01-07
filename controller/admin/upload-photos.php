@@ -43,7 +43,30 @@ if (isset($_POST['upload'])) {
                 // store image details in db
                 include_once 'model/table/ImagesTable.class.php';
                 $imagesTable = new ImagesTable($db);
-                $imagesTable->addImage($imageName, $albumId);
+                
+                // set as album cover if user requested, but first unset current album cover
+                if (isset($_POST['album-cover'])) {
+                    // get id of current album cover
+                    $currentAlbumCoverId = $imagesTable->getAlbumCoverIdByAlbumId($albumId);
+                    // unset the album_cover status for the image that is the current album cover
+                    $imagesTable->setAlbumCoverValue($currentAlbumCoverId, 0);
+                    
+                    $albumCover = 1;
+                }
+                // set as album cover if album is empty
+                else if ($albumsTable->getCountById($albumId) === '0') {
+                    $albumCover = 1;
+                }
+                else {
+                    $albumCover = 0;
+                }
+                
+                
+                // store image in db
+                $imagesTable->addImage($imageName, $albumId, NULL, NULL, $albumCover);
+                
+                // increment count in appropriate album
+                $albumsTable->incrementCountById($albumId);
             } catch (Exception $ex) {
                 $uploadMessage = "<p class='failure-message'>{$ex->getMessage()}</p>";
             }

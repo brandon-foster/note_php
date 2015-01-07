@@ -1,7 +1,6 @@
 <?php
-$photosDataSet = isset($photosData);
-if ($photosDataSet === false) {
-    trigger_error('Oops: view/photos-html.php needs a PhotosData object $photosData.');
+if (!isset($albums)) {
+    trigger_error('Oops: view/photos-html.php needs an object $albums.');
 }
 
 // set title
@@ -9,35 +8,42 @@ $pageData->setTitle('Photos');
 // set body class
 $pageData->setBodyClass('body-photos');
 
-// count number of albums
 $albumsHTML = "<!-- thumbnails -->";
-$albums = $photosData->getAlbums();
-$size = count($albums);
-for ($i = 0; $i < $size; $i++) {
-    $current = $albums[$i];
-
+$i = 0;
+while ($album = $albums->fetch(PDO::FETCH_ASSOC)) {
     // ensure that rows are of three columns each
     if ($i % 3 === 0) {
         $albumsHTML .= "<div class='row'>";
     }
 
     // if empty album
-    if (count($current->getFileNames()) === 0) {
+    if ($album['count'] === '0') {
         $albumsHTML .= "
         <div class='large-4 small-6 columns'>
-        <a class='th' href='index.php?page=photos&album={$current->getName()}'><img alt='{$current->getName()}' src='http://placehold.it/295x221'></a>
-        <div class='panel'>
-        <p>{$current->getName()} &middot; {$current->getSize()} photos</p>
-        </div>
+            <a class='th' href='index.php?page=photos&album={$album['name']}'><img alt='{$album['name']}}' src='http://placehold.it/295x221'></a>
+            <div class='panel'>
+                <p>{$album['name']} &middot; {$album['count']} photos</p>
+            </div>
         </div>";
     }
     // if nonempty album 
     else {
+        // directory for the album
+        $dirFormatName = StringFunctions::formatAsQueryString($album['name']);
+        
+        // image name for album cover
+        include_once 'model/table/ImagesTable.class.php';
+        $imagesTable = new ImagesTable($db);
+        $imageCoverName = $imagesTable->getAlbumCoverNameByAlbumId($album['id']);
+        
+        // build the album cover src
+        $src = "img/gallery/{$dirFormatName}/{$imageCoverName}";
+        
         $albumsHTML .= "
         <div class='large-4 small-6 columns'>
-            <a class='th' href='index.php?page=photos&album={$current->getName()}'><img alt='{$current->getName()}' src='{$current->getDirectory()}/{$current->getFileNames()[0]}'></a>
+            <a class='th' href='index.php?page=photos&album={$album['name']}'><img alt='{$album['name']}' src='{$src}'></a>
             <div class='panel'>
-                <p>{$current->getName()} &middot; {$current->getSize()} photos</p>
+                <p>{$album['name']} &middot; {$album['count']} photos</p>
             </div>
         </div>";
     }
@@ -46,6 +52,7 @@ for ($i = 0; $i < $size; $i++) {
     if ($i % 3 === 2) {
         $albumsHTML .= "</div>";
     }
+    $i++;
 }
 
 return $albumsHTML;

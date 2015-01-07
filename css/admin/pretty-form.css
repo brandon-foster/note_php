@@ -18,7 +18,8 @@
     color: #999;
 }
 
-.signup-panel form input,
+.signup-panel form input[type=text],
+.signup-panel form input[type=password],
 .signup-panel form span,
 .signup-panel form select {
     height: 50px;

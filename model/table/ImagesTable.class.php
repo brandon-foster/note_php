@@ -2,17 +2,64 @@
 include_once 'model/table/Table.class.php';
 
 class ImagesTable extends Table {
-    public function addImage($name, $albumId, $caption=NULL, $location=NULL) {
+    public function setAlbumCoverValue($id, $value) {
+        $sql = "
+            UPDATE images
+            SET album_cover = :value
+            WHERE id = :id";
+        
+        $params = array(
+        	':id' => $id,
+            ':value' => $value
+        );
+        
+        $this->makeStatement($sql, $params);
+    }
+    
+    public function getAlbumCoverIdByAlbumId($albumId) {
+        $sql = "
+            SELECT id
+            FROM images
+            WHERE album_id = :album_id
+                AND album_cover = 1";
+        
+        $params = array(
+        	':album_id' => $albumId
+        );
+        
+        $result = $this->makeStatement($sql, $params);
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row['id'];
+    }
+    
+    public function getAlbumCoverNameByAlbumId($albumId) {
+        $sql = "
+            SELECT name
+            FROM images
+            WHERE album_id = :album_id
+                AND album_cover = 1";
+        
+        $params = array(
+        	':album_id' => $albumId
+        );
+        
+        $result = $this->makeStatement($sql, $params);
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row['name'];
+    }
+    
+    public function addImage($name, $albumId, $caption, $location, $albumCover=0) {
         $sql = "
             INSERT INTO images
-                (name, album_id, caption, location)
-            VALUES (:name, :album_id, :caption, :location)";
+                (name, album_id, caption, location, album_cover)
+            VALUES (:name, :album_id, :caption, :location, :album_cover)";
         
         $params = array(
         	':name' => $name,
             ':album_id' => $albumId,
             ':caption' => $caption,
-            ':location' => $location
+            ':location' => $location,
+            ':album_cover' => $albumCover
         );
 
         $this->makeStatement($sql, $params);

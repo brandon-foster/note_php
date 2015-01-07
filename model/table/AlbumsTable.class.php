@@ -2,6 +2,34 @@
 include_once 'model/table/Table.class.php';
 
 class AlbumsTable extends Table {
+    public function getCountById($id) {
+        $sql = "
+            SELECT count
+            FROM albums
+            WHERE id = :id";
+        
+        $params = array(
+        	':id' => $id
+        );
+        
+        $result = $this->makeStatement($sql, $params);
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row['count'];
+    }
+    
+    public function incrementCountById($id) {
+        $sql = "
+            UPDATE albums
+            SET count = count + 1
+            WHERE id = :id";
+        
+        $params = array(
+        	':id' => $id
+        );
+        
+        $this->makeStatement($sql, $params);
+    }
+    
     public function getAlbums() {
         $sql = "
             SELECT id, name, count, date
@@ -9,6 +37,21 @@ class AlbumsTable extends Table {
         
         $result = $this->makeStatement($sql);
         return $result;
+    }
+    
+    public function getAlbumByName($name) {
+        $sql = "
+            SELECT id, name, count, date
+            FROM albums
+            WHERE name = :name";
+        
+        $params = array(
+                ':name' => $name
+        );
+        
+        $result = $this->makeStatement($sql, $params);
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row;
     }
     
     public function getAlbumNameById($id) {
