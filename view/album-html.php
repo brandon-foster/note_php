@@ -47,22 +47,43 @@ $pageData->addScriptCode('
        * Reinitializes the wookmark handler after all images have loaded
        */
       function applyLayout() {
-        $tiles.imagesLoaded(function() {
-          // Destroy the old handler
-          if ($handler.wookmarkInstance) {
-            $handler.wookmarkInstance.clear();
-          }
+        // keep track of which image is being loaded
+        var iteration = 1;
+        // store the number of images in the album
+        var size = $("#main").attr("data-size");        
+        
+        $tiles.imagesLoaded()
+            .progress( function( instance, image ) {
+                // only every other iteration
+                if (iteration % 2 === 0) {
+                    var result = image.isLoaded ? "loaded" : "broken";
+    
+                    var percentage = (iteration / size) * 100;
+                    percentage = Math.round(percentage);
+                    $("#loading-progress-meter.meter").css("width", percentage + "%");
+                }
 
-          // Create a new layout handler.
-          $handler = $("li", $tiles);
-          $handler.wookmark(options);
-        });
+                iteration++;
+            })
+            .done(function( instance ) {
+                // remove the #loading-info-row
+                $("#loading-info-row").remove();
+
+                // Destroy the old handler
+                if ($handler.wookmarkInstance) {
+                $handler.wookmarkInstance.clear();
+                }
+                
+                // Create a new layout handler.
+                $handler = $("li", $tiles);
+                $handler.wookmark(options);
+            });
       }
       /**
        * When scrolled all the way to the bottom, add more tiles
        */
       function onScroll() {
-        // Check if we"re within 100 pixels of the bottom edge of the broser window.
+        // Check if we"re within 100 pixels of the bottom edge of the browser window.
         var winHeight = window.innerHeight ? window.innerHeight : $window.height(), // iphone fix
             closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
 
@@ -95,9 +116,17 @@ $pageData->addScriptCode("
 ");
 
 $galleryHTML = "
+<div class='row' id='loading-info-row'>
+    <div class='small-12 columns'>
+        <h4 id='loading-message'>loading...</h4>
+        <div class='progress small-12 round'>
+          <span id='loading-progress-meter' class='meter'></span>
+        </div>
+    </div>
+</div>
 <div class='content'>
     <div class='wrap'>
-        <div id='main' role='main'>
+        <div id='main' role='main' data-size='{$album['count']}'>
             <ul id='tiles'>
 ";
 
