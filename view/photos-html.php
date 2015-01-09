@@ -41,7 +41,7 @@ while ($album = $albums->fetch(PDO::FETCH_ASSOC)) {
         
         $albumsHTML .= "
         <div class='large-4 small-6 columns'>
-            <a class='th' href='index.php?page=photos&album={$album['name']}'><img alt='{$album['name']}' src='{$src}'></a>
+            <a class='th' href='index.php?page=photos&album={$dirFormatName}'><img alt='{$album['name']}' src='{$src}'></a>
             <div class='panel'>
                 <p>{$album['name']} &middot; {$album['count']} photos</p>
             </div>
