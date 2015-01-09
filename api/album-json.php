@@ -10,7 +10,10 @@ function makeImagesArray($albumId, $imagesTable) {
     $index = 0;
     $images = $imagesTable->getImagesWithAlbumId($albumId);
     while ($image = $images->fetch(PDO::FETCH_ASSOC)) {
-        $imagesArray["image{$index}"] = $image;
+        // alter date value
+        $image['date'] = date('F j, Y', strtotime($image['date']));
+        
+        $imagesArray[$index] = $image;
         $index++;
     }
     
@@ -27,7 +30,7 @@ function makeAlbumJson($albumId, $albumsTable, $imagesTable) {
             'name' => $album['name'],
             'directory' => StringFunctions::formatAsQueryString($album['name']),
             'count' => $album['count'],
-            'date' => $album['date'],
+            'date' => date('F j, Y',  strtotime($album['date'])),
             'images' => $imagesArray
     );
 

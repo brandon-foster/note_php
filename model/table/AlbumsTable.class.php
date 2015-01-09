@@ -39,6 +39,21 @@ class AlbumsTable extends Table {
         return $result;
     }
     
+    public function getAlbumById($id) {
+        $sql = "
+            SELECT id, name, count, date
+            FROM albums
+            WHERE id = :id";
+        
+        $params = array(
+            ':id' => $id
+        );
+        
+        $result = $this->makeStatement($sql, $params);
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    
     public function getAlbumByName($name) {
         $sql = "
             SELECT id, name, count, date

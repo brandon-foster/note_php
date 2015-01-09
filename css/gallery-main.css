@@ -23,7 +23,7 @@
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
-    display: none;
+    /*display: none;*/
     cursor: pointer;
     border-radius: 0.2em;
 }
