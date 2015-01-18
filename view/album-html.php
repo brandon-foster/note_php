@@ -9,8 +9,9 @@ $albumNameProper = StringFunctions::dashToSpace($albumName);
 $albumNameProper =  ucwords($albumNameProper);
 $pageData->setTitle("Album &middot; {$albumNameProper}");
 // set body class
-$albumNameLower = strtolower($albumName);
-$pageData->setBodyClass("body-{$albumNameLower}");
+$albumNameQueryFormat = strtolower($albumName);
+$albumNameQueryFormat = StringFunctions::formatAsQueryString($albumNameQueryFormat);
+$pageData->setBodyClass("body-{$albumNameQueryFormat}");
 $pageData->addCss('css/gallery-style.css');
 $pageData->addCss('css/gallery-main.css');
 // google fonts
