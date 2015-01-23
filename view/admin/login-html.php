@@ -1,4 +1,7 @@
 <?php
+if (!isset($numUsers)) {
+    trigger_error('Oops: view/admin/login-html.php needs a $numUsers');
+}
 // if signup fails, show message and fill in email and username with previously
 // submitted values
 if (!isset($loginMessage)) {
@@ -25,6 +28,13 @@ if (!isset($jsFocusCode)) {
 // set js focus script
 $pageData->addScriptCode($jsFocusCode);
 
+// only show link to sign up if there is no user already in existence in the db
+if ($numUsers < 1) {
+    $signupLink = "<p>Don't have an account? <a href='admin.php?page=signup'>Sign up</a></p>";
+} else {
+    $signupLink = '';
+}
+
 $out = "
 <!-- view/admin/login-html.php depends on css/admin/login.css -->
 <div class='row center'>
@@ -50,7 +60,7 @@ $out = "
             </div>
             <input type='submit' name='login' value='Log in' class='button' />
         </form>
-        <p>Don't have an account? <a href='admin.php?page=signup'>Sign up</a></p>
+        {$signupLink}
     </div>
 </div>";
 

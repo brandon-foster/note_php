@@ -2,6 +2,16 @@
 include_once 'model/table/Table.class.php';
 
 class UsersTable extends Table {
+    public function getUsersCount() {
+        $sql = "
+            SELECT COUNT(username) AS count
+            FROM users";
+        
+        $result = $this->makeStatement($sql);
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row['count'];
+    }
+    
     public function validateLogin($username, $userPassword) {
         // get salt from the user
         $salt = $this->getSaltByUsername($username);

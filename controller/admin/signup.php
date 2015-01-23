@@ -5,6 +5,15 @@ if (isset($_SESSION['user'])) {
     redirect('admin.php?page=dashboard');
 }
 
+// only allow one user in existence in the db
+// if a user already exists in the db, redirect to the login
+include_once 'model/table/UsersTable.class.php';
+$usersTable = new UsersTable($db);
+$numUsers = $usersTable->getUsersCount();
+if ($numUsers >= 1) {
+    redirect('admin.php?page=login');
+}
+
 if (isset($_POST['signup'])) {
     $email = $_POST['email'];
     $username = $_POST['username'];

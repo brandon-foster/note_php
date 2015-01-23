@@ -5,13 +5,13 @@ if (isset($_SESSION['user'])) {
     redirect('admin.php?page=dashboard');
 }
 
+include_once 'model/table/UsersTable.class.php';
+$usersTable = new UsersTable($db);
+
 // handle form submission
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-
-    include_once 'model/table/UsersTable.class.php';
-    $usersTable = new UsersTable($db);
 
     $loginMessage = '';
     // check if username does not exists
@@ -81,5 +81,7 @@ if (isset($_POST['login'])) {
     }
 }
 
+// provide view with number of users
+$numUsers = $usersTable->getUsersCount();
 $loginOut = include_once 'view/admin/login-html.php';
 return $loginOut;
