@@ -5,10 +5,35 @@ if (!isset($_SESSION['user'])) {
 if (!isset($uploadMessage)) {
     $uploadMessage = '';
 }
-if (!isset($selectedNavItem)) {
-    $selectedNavItem = '';
+if (!isset($newNavName)) {
+    $newNavName = '';
+}
+if (!isset($selectedNavParent)) {
+    $selectedNavParent = '';
+}
+if (!isset($navUrl)) {
+    $navUrl = '';
 }
 
+$hasChildYes = '';
+$hasChildNo = '';
+if (isset($hasChild)) {
+    if ($hasChild == 1) {
+        $hasChildYes = "checked='checked'";
+    } else {
+        $hasChildNo = "checked='checked'";
+    }
+}
+
+$adminOnlyYes = '';
+$adminOnlyNo = '';
+if (isset($adminOnly)) {
+    if ($adminOnly == 1) {
+        $adminOnlyYes = "checked='checked'";
+    } else {
+        $adminOnlyNo = "checked='checked'";
+    }
+}
 
 // set title
 $pageData->setTitle('Add Navigation');
@@ -30,7 +55,7 @@ $navItemOptionsHTML = '';
 
 while ($navItem = $navItems->fetch(PDO::FETCH_ASSOC)) {
     $navItemName = $navItem['name'];
-    if (!empty($selectedNavItem) && $navItemName == $selectedNavItem) {
+    if (!empty($selectedNavParent) && $navItemName == $selectedNavParent) {
         $selected = "selected='selected'";
     } else {
         $selected = '';
@@ -40,19 +65,43 @@ while ($navItem = $navItems->fetch(PDO::FETCH_ASSOC)) {
     $navItemOptionsHTML .= "<option value='{$navItemId}' {$selected}>{$navItemName}</option>";
 }
 
+$hasChildRow = "
+    <!-- has child -->
+    <div class='row collapse'>
+        <div class='small-3 columns'>
+            Has child <em class='required'></em>
+        </div>
+        <div class='small-9 columns'>
+            <input type='radio' name='has-child' value='1' {$hasChildYes}>Yes
+            <input type='radio' name='has-child' value='0' {$hasChildNo}>No
+        </div>
+    </div>";
+
+$adminOnlyRow = "
+    <!-- admin only -->
+    <div class='row collapse'>
+        <div class='small-3 columns'>
+            Admin only <em class='required'></em>
+        </div>
+        <div class='small-9 columns'>
+            <input type='radio' name='admin-only' value='1' {$adminOnlyYes}>Yes
+            <input type='radio' name='admin-only' value='0' {$adminOnlyNo}>No
+        </div>
+    </div>";
+
 $out = "
 <div class='row center'>
     <div class='signup-panel'>
         <p class='welcome'>Add Navigation</p>
         {$uploadMessage}
-        <form action='admin.php?page=add-album' method='POST'>
+        <form action='admin.php?page=add-navigation' method='POST'>
             <!-- navigation name -->
             <div class='row collapse'>
                 <div class='small-2 columns'>
                     <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
                 </div>
                 <div class='small-10 columns'>
-                    <input type='text' name='navigation-name' placeholder='new navigation name' />
+                    <input type='text' name='nav-name' placeholder='Navigation item name' value='{$newNavName}' />
                 </div>
             </div>
 
@@ -62,24 +111,28 @@ $out = "
                     <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
                 </div>
                 <div class='small-10 columns'>
-                    <select name='nav-item-id'>
+                    <select name='nav-parent-id'>
                         <option value='0'>No parent</option>
                         {$navItemOptionsHTML}
                     </select>
                 </div>
             </div>
             
-            <!-- admin only status -->
+            {$adminOnlyRow}
+            
+            {$hasChildRow}
+            
+            <!-- navigation url -->
             <div class='row collapse'>
-                <div class='small-3 columns'>
-                    Admin only <em class='required'></em>
+                <div class='small-2 columns'>
+                    <span class='prefix'><i class='fi-folder'></i></span>
                 </div>
-                <div class='small-9 columns'>
-                    <input type='radio' name='admin-only' value='1'>Yes
-                    <input type='radio' name='admin-only' value='0'>No
+                <div class='small-10 columns'>
+                    <input type='text' name='nav-url' placeholder='Navigation URL' value='{$navUrl}' />
                 </div>
             </div>
-            <input type='submit' name='add-navigation' value='Add Navigation' class='button' />
+            
+            <input type='submit' name='add-nav' value='Add Navigation' class='button' />
         </form>
     </div>
 </div>";

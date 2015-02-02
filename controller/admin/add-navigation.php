@@ -2,53 +2,72 @@
 include_once 'model/table/NavItemsTable.class.php';
 $navItemsTable = new NavItemsTable($db);
 
-// check if new album form was submitted
-if (isset($_POST['add-album'])) {
-    if (isset($_POST['album-name'])) {
-        $newAlbumName = $_POST['album-name'];
+// check if new navigation form was submitted
+if (isset($_POST['add-nav'])) {
+    if (!empty($_POST['nav-name'])) {
+        $newNavName = $_POST['nav-name'];
 
-        // check that album name does not already exist
-        if (!$albumsTable->albumNameExists($newAlbumName)) {
-            
-            // check that directory for album does not exist (i.e., "New Album"'s directory would be "img/gallery/new-album"
-            $dirFormatAlbumName = StringFunctions::formatAsQueryString($newAlbumName);
-            if (!file_exists("img/gallery/$dirFormatAlbumName")) {
-                // insert into albums table
-                $albumsTable->addAlbum($newAlbumName);
+        // check that nav name does not already exist
+        if (!$navItemsTable->navNameExists($newNavName)) {
 
-                // create directory
-                $oldMask = umask(0);
-                mkdir("img/gallery/$dirFormatAlbumName", 0777, true);
-                umask($oldMask);
-                
-                // create new nav item for album
-                include_once 'model/table/NavItemsTable.class.php';
-                $navItemsTable = new NavItemsTable($db);
-                
-                $name = $newAlbumName;
-                $parentId = $navItemsTable->getIdByName('Photos');
-                $hasChild = 0;
-                $href = "index.php?page=photos&album={$dirFormatAlbumName}";
-                $adminOnly = 0;
-                $navItemsTable->addNavItem(
-                    $name,
-                    $parentId,
-                    $hasChild,
-                    $href,
-                    $adminOnly);
+            // check that nav-parent-id is set
+            if (isset($_POST['nav-parent-id'])) {
+                $navParentId = $_POST['nav-parent-id'];
 
-                $uploadMessage = "<p class='failure-message'>New album <em>
-                    <strong>$newAlbumName</strong></em> created.</p>";
+                // for sticky form
+                $selectedNavParent = $navItemsTable->getNameById($navParentId);
+
+                if (isset($_POST['admin-only'])) {
+                    $adminOnly = $_POST['admin-only'];
+
+                    if (isset($_POST['has-child'])) {
+                        $hasChild = $_POST['has-child'];
+
+                        $queryStringFormatNavName = StringFunctions::formatAsQueryString($newNavName);
+
+                        // if the new navigation item is admin-only, then
+                        if ($adminOnly == 0) {
+                            $href = "index.php?page={$queryStringFormatNavName}";
+                        }
+                        else if ($adminOnly == 1) {
+                            $href = "admin.php?page={$queryStringFormatNavName}";
+                        }
+
+                        // check if user specified a URL
+                        if (!empty($_POST['nav-url'])) {
+                            $href = $_POST['nav-url'];
+                        }
+
+                        $navItemsTable->addNavItem(
+                                $newNavName,
+                                $navParentId,
+                                $hasChild,
+                                $href,
+                                $adminOnly);
+                        
+                        $uploadMessage = "<p class='failure-message'>New navigation item <em>
+                        <strong>{$newNavName}</strong></em> created.</p>";                        
+                    }
+                    else {
+                        $uploadMessage = "<p class='failure-message'>Please indicate if the navigation item has children.</p>";
+                    }
+                }
+                else {
+                    $uploadMessage = "<p class='failure-message'>Please indicate if the navigation item is to be admin only.</p>";
+                }
             }
             else {
-                $uploadMessage = "<p class='failure-message'>There already exists an album with the slug <em><strong>$dirFormatAlbumName</em></strong></p>";
+                $uploadMessage = "<p class='failure-message'>Navigation item <em><strong>$newAlbumName</strong></em> already exists.</p>";
             }
-         }
-        else {
-            $uploadMessage = "<p class='failure-message'>Album name <em><strong>$newAlbumName</strong></em> already exists.</p>";
         }
+        else {
+            $uploadMessage = "<p class='failure-message'>Navigation item <em><strong>$newAlbumName</strong></em> already exists.</p>";
+        }
+    }
+    else {
+        $uploadMessage = "<p class='failure-message'>Please enter a name for the navigation item.</p>";
     }
 }
 
-$addAlbumOut = include_once 'view/admin/add-navigation-html.php';
-return $addAlbumOut;
+$addNavOut = include_once 'view/admin/add-navigation-html.php';
+return $addNavOut;
