@@ -5,3 +5,5 @@ img/gallery
 util/input.txt
 util/output.txt
 db.php
+*.sql
+
