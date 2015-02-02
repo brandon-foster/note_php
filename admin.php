@@ -48,6 +48,7 @@ if ($getSet) {
         && $controller !== 'upload-photos'
         && $controller !== 'add-album'
         && $controller !== 'add-post'
+        && $controller !== 'add-navigation'
         && $controller !== 'logout') {
         redirect404();
     }
