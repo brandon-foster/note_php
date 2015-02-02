@@ -25,7 +25,7 @@ if (!isset($jsFocusCode)) {
 // set js focus script
 $pageData->addScriptCode($jsFocusCode);
 
-$navItems = $navItemsTable->getNavItems();
+$navItems = $navItemsTable->getTopNavItems();
 $navItemOptionsHTML = '';
 
 while ($navItem = $navItems->fetch(PDO::FETCH_ASSOC)) {
@@ -48,22 +48,22 @@ $out = "
         <form action='admin.php?page=add-album' method='POST'>
             <!-- navigation name -->
             <div class='row collapse'>
-                <div class='small-2 columns '>
+                <div class='small-2 columns'>
                     <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10 columns '>
+                <div class='small-10 columns'>
                     <input type='text' name='navigation-name' placeholder='new navigation name' />
                 </div>
             </div>
 
             <!-- navigation parent -->
             <div class='row collapse'>
-                <div class='small-2 columns '>
+                <div class='small-2 columns'>
                     <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10 columns '>
+                <div class='small-10 columns'>
                     <select name='nav-item-id'>
-                        <option value='0'>Select parent</option>
+                        <option value='0'>No parent</option>
                         {$navItemOptionsHTML}
                     </select>
                 </div>
@@ -71,11 +71,10 @@ $out = "
             
             <!-- admin only status -->
             <div class='row collapse'>
-                <!--<div class='small-2 columns '>
-                    <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
-                </div>-->
-                <div class='small-12 columns '>
-                    Admin only
+                <div class='small-3 columns'>
+                    Admin only <em class='required'></em>
+                </div>
+                <div class='small-9 columns'>
                     <input type='radio' name='admin-only' value='1'>Yes
                     <input type='radio' name='admin-only' value='0'>No
                 </div>

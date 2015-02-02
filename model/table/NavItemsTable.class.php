@@ -53,6 +53,20 @@ class NavItemsTable extends Table {
         return $result;
     }
     
+    public function getTopNavItems() {
+        $sql = "
+            SELECT id, name, parent_id, has_child, href, admin_only
+            FROM nav_items
+            WHERE parent_id = :parent_id";
+        
+        $params = array(
+        	':parent_id' => 0
+        );
+        
+        $result = $this->makeStatement($sql, $params);
+        return $result;
+    }
+    
     public function getNavItems() {
         $sql = "
             SELECT id, name, parent_id, has_child, href, admin_only
