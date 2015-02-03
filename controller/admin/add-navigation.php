@@ -57,11 +57,11 @@ if (isset($_POST['add-nav'])) {
                 }
             }
             else {
-                $uploadMessage = "<p class='failure-message'>Navigation item <em><strong>$newAlbumName</strong></em> already exists.</p>";
+                $uploadMessage = "<p class='failure-message'>Navigation item <em><strong>$newNavName</strong></em> already exists.</p>";
             }
         }
         else {
-            $uploadMessage = "<p class='failure-message'>Navigation item <em><strong>$newAlbumName</strong></em> already exists.</p>";
+            $uploadMessage = "<p class='failure-message'>Navigation item <em><strong>$newNavName</strong></em> already exists.</p>";
         }
     }
     else {

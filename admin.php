@@ -49,6 +49,7 @@ if ($getSet) {
         && $controller !== 'add-album'
         && $controller !== 'add-post'
         && $controller !== 'add-navigation'
+        && $controller !== 'add-category'
         && $controller !== 'logout') {
         redirect404();
     }
