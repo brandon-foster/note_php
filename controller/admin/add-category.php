@@ -2,52 +2,48 @@
 /*
  * Creates a new entry in post_categories table with specified category name. Creates a new entry in nav_items with the specified category name, and parent is the entry of name 'Categories', and href is index.php?page=categories&category={$categoryName} where $categoryName is the specified category being created.
  */
-include_once 'model/table/NavItemsTable.class.php';
-$navItemsTable = new NavItemsTable ( $db );
 
 /*
  * Creates the nav_items entry
  */
-function createCategoryNavEntry($categoryName) {
-    // check that nav name does not already exist
-    if (! $navItemsTable->navNameExists ( $categoryName )) {
+function createCategoryNavEntry($categoryName, $db) {
+    include_once 'model/table/NavItemsTable.class.php';
+    $navItemsTable = new NavItemsTable ( $db );
+    
+    // check that the category name does not already exist in the nav_items table
+    if (!$navItemsTable->navNameExists($categoryName)) {
         
-        // for sticky form
-        $selectedNavParent = $navItemsTable->getNameById ( $navParentId );
+        include_once 'model/table/PostCategoriesTable.class.php';
+        $categoriesTable = new PostCategoriesTable($db);
         
-        if (isset ( $_POST ['admin-only'] )) {
-            $adminOnly = $_POST ['admin-only'];
+        // check that the category name does not already exist in the post_categories table
+        if (!$categoriesTable->categoryNameExists($categoryName)) {
             
-            if (isset ( $_POST ['has-child'] )) {
-                $hasChild = $_POST ['has-child'];
-                
-                $queryStringFormatNavName = StringFunctions::formatAsQueryString ( $newNavName );
-                
-                // if the new navigation item is admin-only, then
-                if ($adminOnly == 0) {
-                    $href = "index.php?page={$queryStringFormatNavName}";
-                } else if ($adminOnly == 1) {
-                    $href = "admin.php?page={$queryStringFormatNavName}";
-                }
-                
-                // check if user specified a URL
-                if (! empty ( $_POST ['nav-url'] )) {
-                    $href = $_POST ['nav-url'];
-                }
-                
-                $navItemsTable->addNavItem ( $newNavName, $navParentId, $hasChild, $href, $adminOnly );
-                
-                $uploadMessage = "<p class='failure-message'>New navigation item <em>
-                <strong>{$newNavName}</strong></em> created.</p>";
-            } else {
-                $uploadMessage = "<p class='failure-message'>Please indicate if the navigation item has children.</p>";
-            }
-        } else {
-            $uploadMessage = "<p class='failure-message'>Please indicate if the navigation item is to be admin only.</p>";
-        }
+            // create the category in the post_categories table
+            $categoriesTable->addCategory($categoryName);
+            
+            // prepare for inserting nav item in nav_items table
+            // parent_id
+            $parentId = $navItemsTable->getIdByName('Categories');
 
+            // href
+            $queryStringFormatedName = StringFunctions::formatAsQueryString($categoryName);
+            $href = "index.php?page=categories&category={$queryStringFormatedName}";
+
+            // create the nav item in the nav_items table
+            // name, parent_id, has_child, href, admin_only
+            $navItemsTable->addNavItem($categoryName, $parentId, 0, $href, 0);
+
+            $uploadMessage = "<p class='failure-message'>Category item <em><strong>$categoryName</strong></em> added.</p>";
+            return $uploadMessage;
+        }
+        else {
+            $uploadMessage = "<p class='failure-message'>Category item <em><strong>$categoryName</strong></em> already exists.</p>";
+            return $uploadMessage;
+        }
     } else {
-        $uploadMessage = "<p class='failure-message'>Navigation item <em><strong>$newAlbumName</strong></em> already exists.</p>";
+        $uploadMessage = "<p class='failure-message'>Navigation item <em><strong>$categoryName</strong></em> already exists.</p>";
+        return $uploadMessage;
     }
 }
 
@@ -55,7 +51,7 @@ function createCategoryNavEntry($categoryName) {
 if (isset ( $_POST ['add-category'] )) {
     if (! empty ( $_POST ['category-name'] )) {
         $newCategoryName = $_POST ['category-name'];
-        createCategoryNavEntry($newCategoryName);
+        $uploadMessage = createCategoryNavEntry($newCategoryName, $db);
     } else {
         $uploadMessage = "<p class='failure-message'>Please enter a name for the navigation item.</p>";
     }

@@ -1,6 +1,38 @@
 <?php
 include_once 'model/table/Table.class.php';
 class PostCategoriesTable extends Table {
+    public function addCategory($name) {
+        $sql = "
+            INSERT INTO post_categories
+                (name, count)
+            VALUES
+                (:name, 0)";
+        
+        $params = array(
+        	'name' => $name
+        );
+        
+        return $this->makeStatement($sql, $params);
+    }
+    
+    public function categoryNameExists($name) {
+        $sql = "
+            SELECT 1
+            FROM post_categories
+            WHERE name = :name";
+        
+        $params = array(
+        	':name' => $name
+        );
+        
+        $result = $this->makeStatement($sql, $params);
+        if ($result->rowCount() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     /*
      * Return id, name, and count of all categories
      */
