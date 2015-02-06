@@ -46,14 +46,14 @@ while ($album = $albums->fetch(PDO::FETCH_ASSOC)) {
 $out = "
 <div class='row center'>
     <div class='signup-panel'>
-        <p class='welcome'>Upload Photo</p>
+        <h2 class='welcome'>Upload Photo</h2>
         {$uploadMessage}
         <form action='admin.php?page=upload-photos' method='POST' enctype='multipart/form-data'>
             <div class='row collapse'>
-                <div class='small-2 columns '>
+                <div class='small-2 medium-1 columns '>
                     <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10 columns '>
+                <div class='small-10 medium-11 columns '>
                     <select name='album-id'>
                         <option value=''>Select album</option>
                         {$albumOptionsHTML}
@@ -61,15 +61,15 @@ $out = "
                 </div>
             </div>
             <div class='row collapse'>
-                <div class='small-2 columns '>
+                <div class='small-2 medium-1 columns '>
                     <span class='prefix'><i class='fi-pencil'></i></span>
                 </div>
-                <div class='small-10 columns '>
+                <div class='small-10 medium-11 columns '>
                     <input type='text' name='user-image-name' placeholder='image name' />
                 </div>
             </div>
             <div class='row collapse'>
-                <div class='small-12  columns'>
+                <div class='small-12 columns'>
                     <em class='required'></em>
                     <input type='file' name='user-image' />
                     

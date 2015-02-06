@@ -30,7 +30,6 @@ if (isset($_GET['id'])) {
 
     // provide view with the category name of the post categoryId
     $categoryId = $postsTable->getCategoryIdByPostId($postId);
-    //$selected = $postCategoriesTable->getCategoryNameById($categoryId);
 
     $out = include_once 'view/admin/edit-post-html.php';
     return $out;
@@ -40,6 +39,7 @@ else {
     // get all quotations    
     // provide view with $postRows
     $postRows = $postsTable->getPostsListing();
+    
     $out = include_once 'view/admin/list-posts-html.php';
     return $out;
 }

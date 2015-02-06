@@ -27,15 +27,15 @@ $pageData->addScriptCode($jsFocusCode);
 $out = "
 <div class='row center'>
     <div class='signup-panel'>
-        <p class='welcome'>Add Category</p>
+        <h2 class='welcome'>Add Category</h2>
         {$uploadMessage}
         <form action='admin.php?page=add-category' method='POST'>
             <!-- category name -->
             <div class='row collapse'>
-                <div class='small-2 columns'>
+                <div class='small-2 medium-1 columns'>
                     <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10 columns'>
+                <div class='small-10 medium-11 columns'>
                     <input type='text' name='category-name' placeholder='Category name' value='{$newCategoryName}' />
                 </div>
             </div>

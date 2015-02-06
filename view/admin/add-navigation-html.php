@@ -68,10 +68,10 @@ while ($navItem = $navItems->fetch(PDO::FETCH_ASSOC)) {
 $hasChildRow = "
     <!-- has child -->
     <div class='row collapse'>
-        <div class='small-3 columns'>
+        <div class='small-3 medium-2 columns'>
             Has child <em class='required'></em>
         </div>
-        <div class='small-9 columns'>
+        <div class='small-9 medium-10 columns'>
             <input type='radio' name='has-child' value='1' {$hasChildYes}>Yes
             <input type='radio' name='has-child' value='0' {$hasChildNo}>No
         </div>
@@ -80,10 +80,10 @@ $hasChildRow = "
 $adminOnlyRow = "
     <!-- admin only -->
     <div class='row collapse'>
-        <div class='small-3 columns'>
+        <div class='small-3 medium-2 columns'>
             Admin only <em class='required'></em>
         </div>
-        <div class='small-9 columns'>
+        <div class='small-9 medium-10 columns'>
             <input type='radio' name='admin-only' value='1' {$adminOnlyYes}>Yes
             <input type='radio' name='admin-only' value='0' {$adminOnlyNo}>No
         </div>
@@ -92,25 +92,25 @@ $adminOnlyRow = "
 $out = "
 <div class='row center'>
     <div class='signup-panel'>
-        <p class='welcome'>Add Navigation</p>
+        <h2 class='welcome'>Add Navigation</h2>
         {$uploadMessage}
         <form action='admin.php?page=add-navigation' method='POST'>
             <!-- navigation name -->
             <div class='row collapse'>
-                <div class='small-2 columns'>
+                <div class='small-2 medium-1 columns'>
                     <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10 columns'>
+                <div class='small-10 medium-11 columns'>
                     <input type='text' name='nav-name' placeholder='Navigation item name' value='{$newNavName}' />
                 </div>
             </div>
 
             <!-- navigation parent -->
             <div class='row collapse'>
-                <div class='small-2 columns'>
+                <div class='small-2 medium-1 columns'>
                     <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10 columns'>
+                <div class='small-10 medium-11 columns'>
                     <select name='nav-parent-id'>
                         <option value='0'>No parent</option>
                         {$navItemOptionsHTML}
@@ -124,10 +124,10 @@ $out = "
             
             <!-- navigation url -->
             <div class='row collapse'>
-                <div class='small-2 columns'>
+                <div class='small-2 medium-1 columns'>
                     <span class='prefix'><i class='fi-folder'></i></span>
                 </div>
-                <div class='small-10 columns'>
+                <div class='small-10 medium-11 columns'>
                     <input type='text' name='nav-url' placeholder='Navigation URL' value='{$navUrl}' />
                 </div>
             </div>

@@ -53,7 +53,7 @@ $text = htmlentities(htmlspecialchars($postRow['text']));
 $out = "
 <div class='row center'>
     <div class='signup-panel'>
-        <p class='welcome'>Edit Post</p>
+        <h2 class='welcome'>Edit Post</h2>
         {$editPostMessage}
         
         <form action='' method='POST'>
@@ -61,20 +61,20 @@ $out = "
             
             <!-- title -->
             <div class='row collapse'>
-                <div class='small-2 columns'>
+                <div class='small-2 medium-1 columns'>
                     <span class='prefix'><i class='fi-clipboard'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10  columns'>
+                <div class='small-10 medium-11 columns'>
                     <input type='text' name='title' value='{$postRow['title']}' placeholder='title' maxlength='255' />
                 </div>
             </div>
             
             <!-- category -->
             <div class='row collapse'>
-                <div class='small-2 columns'>
+                <div class='small-2 medium-1 columns'>
                     <span class='prefix'><i class='fi-list-thumbnails'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10  columns'>
+                <div class='small-10 medium-11 columns'>
                     <select name='category-id'>
                         <option value=''>Select category</option>
                         {$categoryOptionsHTML}
@@ -84,20 +84,20 @@ $out = "
             
             <!-- text -->
             <div class='row collapse'>
-                <div class='small-2 columns'>
+                <div class='small-2 medium-1 columns'>
                     <span class='prefix'><i class='fi-pencil'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10 columns'>
+                <div class='small-10 medium-11 columns'>
                     <textarea name='text' placeholder='Edit post...'>{$text}</textarea>
                 </div>
             </div>
             
             <!-- date  -->
             <div class='row collapse'>
-                <div class='small-2 columns'>
+                <div class='small-2 medium-1 columns'>
                     <span class='prefix'><i class='fi-pencil'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10 columns'>
+                <div class='small-10 medium-11 columns'>
                     <textarea name='date-created' placeholder='Edit date...'>{$postRow['date_created']}</textarea>
                 </div>
             </div>

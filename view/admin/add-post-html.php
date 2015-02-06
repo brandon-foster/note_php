@@ -50,22 +50,22 @@ while ($item = $categoryItems->fetch(PDO::FETCH_ASSOC)) {
 $out = "
 <div class='row center'>
     <div class='signup-panel'>
-        <p class='welcome'>Add Post</p>
+        <h2 class='welcome'>Add Post</h2>
         {$addPostMessage}
         <form action='' method='POST'>
             <div class='row collapse'>
-                <div class='small-2 columns'>
+                <div class='small-2 medium-1 columns'>
                     <span class='prefix'><i class='fi-clipboard'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10  columns'>
+                <div class='small-10 medium-11 columns'>
                     <input type='text' name='title' value='{$title}' placeholder='title' maxlength='255' />
                 </div>
             </div>
             <div class='row collapse'>
-                <div class='small-2 columns'>
+                <div class='small-2 medium-1 columns'>
                     <span class='prefix'><i class='fi-list-thumbnails'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10  columns'>
+                <div class='small-10 medium-11 columns'>
                     <select name='category'>
                         <option value=''>Select category</option>
                         {$categoryOptionsHTML}
@@ -73,10 +73,10 @@ $out = "
                 </div>
             </div>
             <div class='row collapse'>
-                <div class='small-2 columns'>
+                <div class='small-2 medium-1 columns'>
                     <span class='prefix'><i class='fi-pencil'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10 columns'>
+                <div class='small-10 medium-11 columns'>
                     <textarea name='text' placeholder='Compose new post...'>{$text}</textarea>
                 </div>
             </div>

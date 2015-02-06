@@ -25,14 +25,14 @@ $pageData->addScriptCode($jsFocusCode);
 $out = "
 <div class='row center'>
     <div class='signup-panel'>
-        <p class='welcome'>Add Album</p>
+        <h2 class='welcome'>Add Album</h2>
         {$uploadMessage}
         <form action='admin.php?page=add-album' method='POST'>
             <div class='row collapse'>
-                <div class='small-2 columns '>
+                <div class='small-2 medium-1 columns '>
                     <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
                 </div>
-                <div class='small-10 columns '>
+                <div class='small-10 medium-11 columns '>
                     <input type='text' name='album-name' placeholder='new album name' />
                 </div>
             </div>

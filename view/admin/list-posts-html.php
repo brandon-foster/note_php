@@ -12,6 +12,8 @@ $pageData->setBodyClass('body-edit-post');
 $listPosts= '
 <ul class="no-bullet">';
 
+
+$oldCategoryName = '';
 while ($postRow = $postRows->fetch(PDO::FETCH_ASSOC)) {
     $listPosts .= '<li>';
 
@@ -20,6 +22,13 @@ while ($postRow = $postRows->fetch(PDO::FETCH_ASSOC)) {
     $categoryId = $postRow['category_id'];
     $text = $postRow['preview_text'];
     $dateCreated = $postRow['date_created'];
+    
+    $categoryName = $postCategoriesTable->getCategoryNameById($categoryId);
+    
+    if ($categoryName !== $oldCategoryName) {
+        $listPosts .= "<h3>{$categoryName}</h3>";
+        $oldCategoryName = $categoryName;
+    }
 
     $listPosts .= "
         <a href='admin.php?page=edit-post&id={$id}'>

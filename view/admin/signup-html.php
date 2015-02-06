@@ -29,10 +29,10 @@ $pageData->addScriptCode($jsFocusCode);
 
 $emailInput = "
     <div class='row collapse'>
-        <div class='small-2 columns'>
+        <div class='small-2 medium-1 columns'>
             <span class='prefix'><i class='fi-mail'></i> <em class='required'></em></span>
         </div>
-        <div class='small-10  columns'>
+        <div class='small-10 medium-11 columns'>
             <input type='email' name='email' value='{$email}' placeholder='email' required />
         </div>
     </div>";
@@ -40,23 +40,23 @@ $emailInput = "
 $out = "
 <div class='row center'>
         <div class='signup-panel'>
-            <p class='welcome'>Sign Up</p>
+            <h2 class='welcome'>Sign Up</h2>
             {$signupMessage}
             <form action='admin.php?page=signup' method='POST'>
                 {$emailInput}
                 <div class='row collapse'>
-                    <div class='small-2 columns'>
+                    <div class='small-2 medium-1 columns'>
                         <span class='prefix'><i class='fi-torso'></i> <em class='required'></em></span>
                     </div>
-                    <div class='small-10  columns'>
+                    <div class='small-10 medium-11 columns'>
                         <input type='text' name='username' value='{$username}' placeholder='username' required />
                     </div>
                 </div>
                 <div class='row collapse'>
-                    <div class='small-2 columns '>
+                    <div class='small-2 medium-1 columns'>
                         <span class='prefix'><i class='fi-lock'></i> <em class='required'></em></span>
                     </div>
-                    <div class='small-10 columns '>
+                    <div class='small-10 medium-11 columns '>
                         <input type='password' name='password' placeholder='password' required />
                     </div>
                 </div>
