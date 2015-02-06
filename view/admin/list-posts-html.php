@@ -10,7 +10,7 @@ $pageData->setTitle('Edit Post');
 $pageData->setBodyClass('body-edit-post');
 
 $listPosts= '
-<ul>';
+<ul class="no-bullet">';
 
 while ($postRow = $postRows->fetch(PDO::FETCH_ASSOC)) {
     $listPosts .= '<li>';

@@ -3,16 +3,16 @@ if (!isset($postRow)) {
     trigger_error('Oops: view/admin/edit-post-html.php needs a $postRow');
 }
 if(!isset($categoryItems)) {
-    trigger_error('Oops: view/admin/add-post-html.php needs $categoryItems.');
+    trigger_error('Oops: view/admin/edit-post-html.php needs $categoryItems.');
+}
+if(!isset($categoryId)) {
+    trigger_error('Oops: view/admin/edit-post-html.php needs $categoryId.');
 }
 if (!isset($editPostMessage)) {
     $editPostMessage = '';
 }
 if (!isset($title)) {
     $title = '';
-}
-if (!isset($categoryId)) {
-    $categoryId = '';
 }
 if (!isset($text)) {
     $text = '';
@@ -40,12 +40,13 @@ while ($item = $categoryItems->fetch(PDO::FETCH_ASSOC)) {
     $categoryName = $item['name'];
     $categoryCount = $item['count'];
 
-    // check if $selected was set in controller from previous submission
-    if (!empty($selected) && $categoryName == $selected) {
+    // make a selected attribute if the $item's id matches the $categoryId provided to this view
+    if ($categoryId == $item['id']) {
         $selected = "selected='selected'";
     } else {
         $selected = '';
     }
+
     $categoryOptionsHTML .= "<option value='{$categoryName}' {$selected}>{$categoryName} ({$categoryCount} existing posts)</option>";
 }
 
