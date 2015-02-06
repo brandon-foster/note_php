@@ -9,13 +9,10 @@ $postCategoriesTable = new PostCategoriesTable($db);
 // handle edit submission
 if (isset($_POST['edit-post'])) {
     $postId = $_POST['id'];
-
     $title = $_POST['title'];
-    $categoryName = $_POST['category-name'];  
-    $categoryId = $postCategoriesTable->getCategoryIdByName($categoryName);
+    $categoryId = $_POST['category-id'];  
     $text = $_POST['text'];
     $dateCreated = $_POST['date-created'];
-    
 
     if ($postsTable->editPostById($postId, $title, $categoryId, $text, $dateCreated)) {
         $editPostMessage = "<p class='failure-message'>Post successfully updated.</p>";

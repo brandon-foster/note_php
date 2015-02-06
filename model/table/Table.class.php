@@ -12,7 +12,7 @@ class Table {
         try {
             $statement->execute($params);
         } catch (Exception $ex) {
-            $errorMessage = "<p>Tried to run this SQL: {$sql}. Exception: {$ex}</p>";
+            $errorMessage = "<pre>Tried to run this SQL: {$sql}. Exception: {$ex}</pre>";
             trigger_error($errorMessage);
         }
 

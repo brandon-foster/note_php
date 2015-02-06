@@ -28,6 +28,7 @@ class PostsTable extends Table {
             WHERE id = :id';
 
         $params = array(
+                ':id' => $id,
                 ':title' => $title,
                 ':category_id' => $categoryId,
                 ':text' => $text,

@@ -37,8 +37,6 @@ $pageData->addScriptCode($jsFocusCode);
 // get existing categories from CategoriesTable object
 $categoryOptionsHTML = '';
 while ($item = $categoryItems->fetch(PDO::FETCH_ASSOC)) {
-    $categoryName = $item['name'];
-    $categoryCount = $item['count'];
 
     // make a selected attribute if the $item's id matches the $categoryId provided to this view
     if ($categoryId == $item['id']) {
@@ -47,7 +45,7 @@ while ($item = $categoryItems->fetch(PDO::FETCH_ASSOC)) {
         $selected = '';
     }
 
-    $categoryOptionsHTML .= "<option value='{$categoryName}' {$selected}>{$categoryName} ({$categoryCount} existing posts)</option>";
+    $categoryOptionsHTML .= "<option value='{$item['id']}' {$selected}>{$item['name']} ({$item['count']} existing posts)</option>";
 }
 
 $text = htmlentities(htmlspecialchars($postRow['text']));
@@ -77,7 +75,7 @@ $out = "
                     <span class='prefix'><i class='fi-list-thumbnails'></i> <em class='required'></em></span>
                 </div>
                 <div class='small-10  columns'>
-                    <select name='category-name'>
+                    <select name='category-id'>
                         <option value=''>Select category</option>
                         {$categoryOptionsHTML}
                     </select>
