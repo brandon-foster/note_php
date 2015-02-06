@@ -50,6 +50,7 @@ if ($getSet) {
         && $controller !== 'add-post'
         && $controller !== 'add-navigation'
         && $controller !== 'add-category'
+        && $controller !== 'edit-post'
         && $controller !== 'logout') {
         redirect404();
     }

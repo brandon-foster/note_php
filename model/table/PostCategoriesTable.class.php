@@ -1,6 +1,22 @@
 <?php
 include_once 'model/table/Table.class.php';
 class PostCategoriesTable extends Table {
+    public function getCategoryNameById($id) {
+        $sql = '
+            SELECT name
+            FROM post_categories
+            WHERE id = :id';
+    
+        $params = array(
+        	':id' => $id
+        );
+        
+        $result = $this->makeStatement($sql, $params);
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row['name'];
+
+    }
+    
     public function addCategory($name) {
         $sql = "
             INSERT INTO post_categories
