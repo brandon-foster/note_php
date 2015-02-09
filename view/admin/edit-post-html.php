@@ -48,7 +48,7 @@ while ($item = $categoryItems->fetch(PDO::FETCH_ASSOC)) {
     $categoryOptionsHTML .= "<option value='{$item['id']}' {$selected}>{$item['name']} ({$item['count']} existing posts)</option>";
 }
 
-$text = htmlentities(htmlspecialchars($postRow['text']));
+$text = htmlspecialchars($postRow['text']);
 
 $out = "
 <div class='row center'>

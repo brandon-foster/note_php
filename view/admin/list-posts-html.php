@@ -34,8 +34,7 @@ while ($postRow = $postRows->fetch(PDO::FETCH_ASSOC)) {
         <a href='admin.php?page=edit-post&id={$id}'>
             <div class='panel'>
                 <h4>{$title}</h4>
-                <h5>{$categoryId}</h5>
-                <p>{$text}</p>
+                <p><i>{$text}...</i></p>
                 <p>{$dateCreated}</p>
             </div>
         </a>";
