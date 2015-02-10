@@ -156,3 +156,13 @@ ALTER TABLE `posts`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `nav_items` (`id`, `name`, `parent_id`, `has_child`, `href`, `admin_only`) VALUES
+(37, 'Dashboard', 0, 1, 'admin.php?page=dashboard', 1),
+(45, 'Odds and Ends', 44, 0, 'index.php?page=categories&category=odds-and-ends', 0),
+(39, 'Log Out', 0, 0, 'admin.php?page=logout', 1),
+(40, 'Add Post', 37, 0, 'admin.php?page=add-post', 1),
+(41, 'Add Category', 37, 0, 'admin.php?page=add-category', 1),
+(42, 'Add Navigation', 37, 0, 'admin.php?page=add-navigation', 1),
+(43, 'Edit Post', 37, 0, 'admin.php?page=edit-post', 1),
+(44, 'Categories', 0, 0, 'index.php?page=categories', 0);
