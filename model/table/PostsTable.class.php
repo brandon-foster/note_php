@@ -120,17 +120,12 @@ class PostsTable extends Table {
     }
 
     public function addPost($title, $categoryId, $text) {
-        $sql = '
+        $sql = "
             INSERT INTO posts (title, category_id, text)
-            VALUES (:title, :category_id, :text)';
+            VALUES ($title, $category_id, $text)";
+        
+        $statement = $this->db->query($sql);
 
-        // get category_id from $category
-        $params = array(
-        	':title' => $title,
-            ':category_id' => $categoryId,
-            ':text' => $text
-        );
-
-        return $this->makeStatement($sql, $params);
+        return $statement;
     }
 }
