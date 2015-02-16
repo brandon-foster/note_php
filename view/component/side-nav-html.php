@@ -14,7 +14,7 @@ while ($item = $sideNavItems->fetch(PDO::FETCH_ASSOC)) {
     $listItemsHTML .= "<li {$active}><a href='{$href}'>{$name}</a></li>";
 }
 $out = "
-<div class='small-2 columns'>";
+<div class='small-12 medium-2 columns'>";
 $out .= "
     <ul class='side-nav'>
         {$listItemsHTML}
