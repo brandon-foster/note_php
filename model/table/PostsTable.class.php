@@ -95,7 +95,7 @@ class PostsTable extends Table {
      */
     public function getPostsListing() {
         $sql = '
-            SELECT id, title, category_id, LEFT(text, 40) AS preview_text, date_created
+            SELECT id, title, category_id, text AS preview_text, date_created
             FROM posts';
         
         $result = $this->makeStatement($sql);
@@ -107,7 +107,7 @@ class PostsTable extends Table {
      */
     public function getPostsListingByCategoryId($categoryId) {
         $sql = '
-            SELECT id, title, category_id, LEFT(text, 40) AS preview_text, date_created
+            SELECT id, title, category_id, text AS preview_text, date_created
             FROM posts
             WHERE category_id = :category_id';
         
@@ -120,12 +120,17 @@ class PostsTable extends Table {
     }
 
     public function addPost($title, $categoryId, $text) {
-        $sql = "
+        $sql = '
             INSERT INTO posts (title, category_id, text)
-            VALUES ($title, $category_id, $text)";
-        
-        $statement = $this->db->query($sql);
+            VALUES (:title, :category_id, :text)';
 
-        return $statement;
+        // get category_id from $category
+        $params = array(
+        	':title' => $title,
+            ':category_id' => $categoryId,
+            ':text' => $text
+        );
+
+        return $this->makeStatement($sql, $params);
     }
 }
