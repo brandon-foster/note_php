@@ -23,6 +23,10 @@ $pageData->addCss('css/main.css');
 $pageData->addCss('res/foundation-5.5.0/css/normalize.css');
 $pageData->addCss('res/foundation-5.5.0/css/foundation.min.css');
 
+// FOR FOOTER, FOUNDATION ICONS, and css
+//$pageData->addCss('http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css');
+$pageData->addCss('css/footer.css');
+
 // FOUNDATION JS
 $pageData->addJs('res/foundation-5.5.0/js/vendor/jquery.js');
 $pageData->addJs('res/foundation-5.5.0/js/vendor/fastclick.js');
