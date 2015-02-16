@@ -19,7 +19,7 @@ $categoryPostsHTML = '';
 while ($post = $categoryPosts->fetch(PDO::FETCH_ASSOC)) {
     $postId = $post['id'];
     $postTitle = $post['title'];
-    $postPreviewText = strip_tags($post['preview_text']);
+    $postPreviewText = strip_tags($post['preview_text'], '<p>');
     $postDate = $post['date_created'];
 
     $titleDashed = strtolower($postTitle);

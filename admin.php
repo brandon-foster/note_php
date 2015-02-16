@@ -52,9 +52,10 @@ if ($getSet) {
         && $controller !== 'upload-photos'
         && $controller !== 'add-album'
         && $controller !== 'add-post'
+        && $controller !== 'edit-post'
+    	&& $controller !== 'delete-posts'
         && $controller !== 'add-navigation'
         && $controller !== 'add-category'
-        && $controller !== 'edit-post'
         && $controller !== 'logout') {
         redirect404();
     }

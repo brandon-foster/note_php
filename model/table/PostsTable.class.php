@@ -1,6 +1,21 @@
 <?php
 include_once 'model/table/Table.class.php';
 class PostsTable extends Table {
+	
+	public function deletePostById($id) {
+        $sql = '
+            UPDATE posts
+            SET
+                deleted = 1
+            WHERE id = :id';
+
+        $params = array(
+            ':id' => $id
+        );
+
+        $result = $this->makeStatement($sql, $params);
+        return $result;
+	}
     
     public function getCategoryIdByPostId($id) {
         $sql = '
@@ -96,7 +111,8 @@ class PostsTable extends Table {
     public function getPostsListing() {
         $sql = '
             SELECT id, title, category_id, text AS preview_text, date_created
-            FROM posts';
+            FROM posts
+        	WHERE deleted != 1';
         
         $result = $this->makeStatement($sql);
         return $result;
@@ -109,7 +125,8 @@ class PostsTable extends Table {
         $sql = '
             SELECT id, title, category_id, text AS preview_text, date_created
             FROM posts
-            WHERE category_id = :category_id';
+            WHERE category_id = :category_id
+        		AND deleted != 1';
         
         $params = array(
                 ':category_id' => $categoryId,

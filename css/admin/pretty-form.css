@@ -41,7 +41,14 @@
     font-size: 26px;
 }*/
 
-.signup-panel .failure-message {
+/*.signup-panel .failure-message {
+    color: #ffffff;
+    background-color: #007095;
+    padding: 10px;
+}*/
+
+p.failure-message {
+	text-align: center;
     color: #ffffff;
     background-color: #007095;
     padding: 10px;

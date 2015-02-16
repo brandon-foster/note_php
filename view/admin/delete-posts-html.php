@@ -1,16 +1,22 @@
 <?php
 if (!isset($postRows)) {
-    trigger_error('Oops: view/admin/edit-posts-html.php needs a $postRows');
+    trigger_error('Oops: view/admin/delete-posts-html.php needs a $postRows');
+}
+if (!isset($deleteMessage)) {
+	$deleteMessage = '';
 }
 
-
 // set title
-$pageData->setTitle('Edit Post');
+$pageData->setTitle('Delete Posts');
 // set body class
-$pageData->setBodyClass('body-edit-post');
+$pageData->setBodyClass('body-delete-posts');
 
-$listPosts= '
-<ul class="no-bullet">';
+// add css
+$pageData->addCss('css/admin/pretty-form.css');
+
+$listPosts= "
+<form action='' method='POST'>
+<ul class='no-bullet'>";
 
 
 $oldCategoryName = '';
@@ -31,28 +37,29 @@ while ($postRow = $postRows->fetch(PDO::FETCH_ASSOC)) {
     }
 
     $listPosts .= "
-        <a href='admin.php?page=edit-post&id={$id}'>
+		<input type='checkbox' name='postsToDelete[]' value='{$id}' />
             <div class='panel'>
                 <h4>{$title}</h4>
                 <p><i>{$text}</i></p>
                 <p>{$dateCreated}</p>
-            </div>
-        </a>";
+            </div>";
 
     $listPosts .= '</li>';
 }
 
-$listPosts .= '
-</ul>';
+$listPosts .= "
+</ul>
+<input type='submit' name='delete-posts' value='Delete posts' class='button' />
+</form>";
 
 $out = "
-<div class='row'>
-    <div class='small-12 columns'>";
+<div class='row center'>
+        <h2 class='welcome'>Delete Posts</h2>
+		{$deleteMessage}";
 
 $out .= $listPosts;
 
 $out .= '
-    </div>
 </div>';
 
 return $out;
