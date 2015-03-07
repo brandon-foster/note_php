@@ -82,16 +82,6 @@ $out = "
                 </div>
             </div>
             
-            <!-- text -->
-            <div class='row collapse'>
-                <div class='small-2 medium-1 columns'>
-                    <span class='prefix'><i class='fi-pencil'></i> <em class='required'></em></span>
-                </div>
-                <div class='small-10 medium-11 columns'>
-                    <textarea name='text' placeholder='Edit post...'>{$text}</textarea>
-                </div>
-            </div>
-            
             <!-- date  -->
             <div class='row collapse'>
                 <div class='small-2 medium-1 columns'>
@@ -99,6 +89,16 @@ $out = "
                 </div>
                 <div class='small-10 medium-11 columns'>
                     <textarea name='date-created' placeholder='Edit date...'>{$postRow['date_created']}</textarea>
+                </div>
+            </div>
+            
+            <!-- text -->
+            <div class='row collapse'>
+                <div class='small-2 medium-1 columns'>
+                    <span class='prefix'><i class='fi-pencil'></i> <em class='required'></em></span>
+                </div>
+                <div class='small-10 medium-11 columns'>
+                    <textarea class='ckeditor' name='text' placeholder='Edit post...'>{$text}</textarea>
                 </div>
             </div>
             

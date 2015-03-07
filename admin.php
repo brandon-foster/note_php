@@ -29,6 +29,9 @@ $pageData->addJs('res/foundation-5.5.0/js/vendor/fastclick.js');
 $pageData->addJs('res/foundation-5.5.0/js/foundation.min.js');
 $pageData->addScriptCode('$(document).foundation();');
 
+// CKE EDITOR
+$pageData->addJs('res/ckeditor/ckeditor.js');
+
 // NAVIGATION
 $nav = include_once 'controller/nav.php';
 $pageData->setNav($nav);

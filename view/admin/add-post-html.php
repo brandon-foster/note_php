@@ -77,7 +77,7 @@ $out = "
                     <span class='prefix'><i class='fi-pencil'></i> <em class='required'></em></span>
                 </div>
                 <div class='small-10 medium-11 columns'>
-                    <textarea name='text' placeholder='Compose new post...'>{$text}</textarea>
+                    <textarea class='ckeditor' name='text' placeholder='Compose new post...'>{$text}</textarea>
                 </div>
             </div>
             <input type='submit' name='add-post' value='Add post' class='button' />

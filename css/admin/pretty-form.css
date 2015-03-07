@@ -22,13 +22,13 @@
 .signup-panel form input[type=text],
 .signup-panel form input[type=email],
 .signup-panel form input[type=password],
-.signup-panel form span,
+.signup-panel form span.prefix,
 .signup-panel form select {
     height: 50px;
 }
 
-.signup-panel form textarea {
-    height: 14em;
+.signup-panel form input[type=submit] {
+    margin-top: 14px;
 }
 
 .signup-panel .welcome,
