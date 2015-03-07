@@ -19,7 +19,7 @@ $categoryPostsHTML = '';
 while ($post = $categoryPosts->fetch(PDO::FETCH_ASSOC)) {
     $postId = $post['id'];
     $postTitle = $post['title'];
-    $postPreviewText = $post['preview_text'];
+    $postPreviewText = strip_tags($post['preview_text'], '<p>');
     $postDate = $post['date_created'];
 
     $titleDashed = strtolower($postTitle);
@@ -43,7 +43,7 @@ $quantity = $category['count'];
 $postOrPosts = StringFunctions::singularOrPlural('post', $quantity);
 $isOrAre = StringFunctions::isOrAre($quantity);
 $out = "
-    <div class='small-10 columns'>";
+    <div class='small-12 medium-10 columns'>";
 $out .= "
         <div class='row'>
             <h1>{$category['name']}</h1>

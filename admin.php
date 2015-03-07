@@ -23,6 +23,10 @@ $pageData->addCss('css/main.css');
 $pageData->addCss('res/foundation-5.5.0/css/normalize.css');
 $pageData->addCss('res/foundation-5.5.0/css/foundation.min.css');
 
+// FOR FOOTER, FOUNDATION ICONS, and css
+$pageData->addCss('res/foundation-icons/foundation-icons.css');
+$pageData->addCss('css/footer.css');
+
 // FOUNDATION JS
 $pageData->addJs('res/foundation-5.5.0/js/vendor/jquery.js');
 $pageData->addJs('res/foundation-5.5.0/js/vendor/fastclick.js');
@@ -51,9 +55,10 @@ if ($getSet) {
         && $controller !== 'upload-photos'
         && $controller !== 'add-album'
         && $controller !== 'add-post'
+        && $controller !== 'edit-post'
+    	&& $controller !== 'delete-posts'
         && $controller !== 'add-navigation'
         && $controller !== 'add-category'
-        && $controller !== 'edit-post'
         && $controller !== 'logout') {
         redirect404();
     }

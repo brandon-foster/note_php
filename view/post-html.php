@@ -18,7 +18,7 @@ $pageData->addJs('res/syntax-highlighter/scripts/shBrushBash.js');
 $pageData->addScriptCode('SyntaxHighlighter.all();');
 
 $out = "
-<div class='small-10 columns'>
+<div class='small-12 medium-10 columns'>
   <h2>{$post['title']}</h2>
   <p>{$post['date_created']}</p>
   <div>

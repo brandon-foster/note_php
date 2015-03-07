@@ -96,7 +96,26 @@ class PostCategoriesTable extends Table {
         $row = $result->fetch(PDO::FETCH_ASSOC);
         return $row['id'];
     }
-
+    
+    /*
+     * Decrement the count attribute of the category with the specified id
+     */
+    public function decrementCount($id) {
+    	$sql = '
+            UPDATE post_categories
+            SET count = :count
+            WHERE id = :id';
+    
+    	$count = $this->getCount($id);
+    	$count--;
+    	$params = array(
+    			':count' => $count,
+    			':id' => $id
+    	);
+    
+    	$this->makeStatement($sql, $params);
+    }
+    
     /*
      * Increment the count attribute of the category with the specified id
      */

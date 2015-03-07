@@ -32,7 +32,7 @@ else {
     $pageData->addCss('res/foundation-5.5.0/css/foundation.css');
     
     // FOR FOOTER, FOUNDATION ICONS, and css
-    $pageData->addCss('http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css');  
+    $pageData->addCss('res/foundation-icons/foundation-icons.css');
     $pageData->addCss('css/footer.css');  
     
     // FOUNDATION JS
