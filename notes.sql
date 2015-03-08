@@ -75,16 +75,16 @@ CREATE TABLE IF NOT EXISTS `nav_items` (
 --
 
 INSERT INTO `nav_items` (`id`, `name`, `parent_id`, `has_child`, `href`, `admin_only`) VALUES
-(1, 'Dashboard', 0, 1, 'admin.php?page=dashboard', 1),
-(2, 'Add Category', 1, 0, 'admin.php?page=add-category', 1),
-(3, 'Add Post', 1, 0, 'admin.php?page=add-post', 1),
-(4, 'Edit Post', 1, 0, 'admin.php?page=edit-post', 1),
+(1, 'Dashboard', 0, 1, '/admin.php?page=dashboard', 1),
+(2, 'Add Category', 1, 0, '/admin.php?page=add-category', 1),
+(3, 'Add Post', 1, 0, '/admin.php?page=add-post', 1),
+(4, 'Edit Post', 1, 0, '/admin.php?page=edit-post', 1),
 
-(5, 'Add Album', 1, 0, 'admin.php?page=add-album', 1),
-(6, 'Upload Photos', 1, 0, 'admin.php?page=upload-photos', 1),
+(5, 'Add Album', 1, 0, '/admin.php?page=add-album', 1),
+(6, 'Upload Photos', 1, 0, '/admin.php?page=upload-photos', 1),
 
-(7, 'Add Navigation', 1, 0, 'admin.php?page=add-navigation', 1),
-(8, 'Log Out', 0, 0, 'admin.php?page=logout', 1),
+(7, 'Add Navigation', 1, 0, '/admin.php?page=add-navigation', 1),
+(8, 'Log Out', 0, 0, '/admin.php?page=logout', 1),
 
 (9, 'Categories', 0, 1, '/categories', 0),
 (10, 'Photos', 0, 1, '/photos', 0);
