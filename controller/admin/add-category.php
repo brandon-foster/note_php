@@ -1,6 +1,6 @@
 <?php
 /*
- * Creates a new entry in post_categories table with specified category name. Creates a new entry in nav_items with the specified category name, and parent is the entry of name 'Categories', and href is index.php?page=categories&category={$categoryName} where $categoryName is the specified category being created.
+ * Creates a new entry in post_categories table with specified category name. Creates a new entry in nav_items with the specified category name, and parent is the entry of name 'Categories', and href is /categories/{$categoryName} where $categoryName is the specified category being created.
  */
 
 /*
@@ -28,7 +28,7 @@ function createCategoryNavEntry($categoryName, $db) {
 
             // href
             $queryStringFormatedName = StringFunctions::formatAsQueryString($categoryName);
-            $href = "index.php?page=categories&category={$queryStringFormatedName}";
+            $href = "/categories/{$queryStringFormatedName}";
 
             // create the nav item in the nav_items table
             // name, parent_id, has_child, href, admin_only
