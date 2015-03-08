@@ -24,7 +24,7 @@ while ($post = $categoryPosts->fetch(PDO::FETCH_ASSOC)) {
 
     $titleDashed = strtolower($postTitle);
     $titleDashed = StringFunctions::spaceToDash($titleDashed);
-    $href = "index.php?page=categories&category={$categoryNameDashed}&title={$titleDashed}";
+    $href = "/categories/{$categoryNameDashed}/{$titleDashed}";
 
     $ellipses = (strlen($postPreviewText) === 40) ? '... (<em>read more</em>)' : '';
     $categoryPostsHTML .= "

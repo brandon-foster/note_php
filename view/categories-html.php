@@ -8,7 +8,7 @@ $pageData->setTitle('Categories');
 // set body class
 $pageData->setBodyClass('body-categories');
 // css
-$pageData->addCss('css/posts.css');
+$pageData->addCss('/css/posts.css');
 
 // get each category of posts
 $categoriesHTML = '';
@@ -21,7 +21,7 @@ while ($item = $categoryItems->fetch(PDO::FETCH_ASSOC)) {
     $categoryQueryParam = StringFunctions::spaceToDash($categoryQueryParam);
     $categoryQueryParam = strtolower($categoryQueryParam);
     
-    $href = "index.php?page=categories&category={$categoryQueryParam}";
+    $href = "/categories/{$categoryQueryParam}";
     
     $categoriesHTML .= "
     <div class='row'>

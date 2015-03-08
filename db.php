@@ -2,7 +2,7 @@
 ////////////////////
 // DB connection
 $host = "localhost";
-$dbName = "photos";
+$dbName = "notes";
 $dbInfo = "mysql:host={$host};dbname={$dbName}";
 $dbUser = "root";
 $dbPassword = "root";
