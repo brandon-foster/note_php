@@ -31,7 +31,7 @@ else {
         if ($album['count'] === '0') {
             $albumsHTML .= "
             <div class='large-4 small-6 columns'>
-                <a class='th' href='index.php?page=photos&album={$album['name']}'><img alt='{$album['name']}}' src='http://placehold.it/295x221'></a>
+                <a class='th' href='index.php?page=photos&album={$album['name']}'><img alt='{$album['name']}' src='http://placehold.it/295x221'></a>
                 <div class='panel'>
                 <p>{$album['name']} &middot; {$album['count']} photos</p>
                 </div>
@@ -53,14 +53,16 @@ else {
             $albumsHTML .= "
                 <div class='large-4 small-6 columns'>
                     <a class='th' href='index.php?page=photos&album={$dirFormatName}'><img alt='{$album['name']}' src='{$src}'></a>
-                    <div class='panel'>
+                    <div cclass='panel'>
                     <p>{$album['name']} &middot; {$album['count']} photos</p>
                     </div>
                 </div>";
         }
         
         // ensure that rows are of three columns each
-        if ($i % 3 === 2) {
+        // if $i == 2 (every third album
+        // or if $i < 2 and it's the last album (therefore $i is either 0 or 1)
+        if ($i % 3 === 2 || ($i < 2 && $i == $albums->rowCount() - 1)) {
             $albumsHTML .= "</div>";
         }
         $i++;
