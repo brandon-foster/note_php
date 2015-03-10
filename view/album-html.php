@@ -27,6 +27,7 @@ $pageData->addJs('res/fancybox/jquery.fancybox.pack.js');
 $pageData->addJs('js/jquery.imagesloaded.js');
 */
 // wookmark
+$pageData->addJs('res/imagesloaded/imagesloaded.pkgd.min.js');
 $pageData->addJs('res/wookmark/wookmark.js');
 $pageData->addJs('js/wookmark-init.js');
 /*
@@ -55,10 +56,11 @@ $pageData->addScriptCode("
 $galleryHTML = "
 <!--<div class='row'>
     <div class='small-12 columns'>-->
-        <div role='main' data-album-id='{$album['id']}'>
+        <div class='progress-bar'></div>
+        <div id='main' role='main' data-album-id='{$album['id']}'>
             <ul id='gallery-container' class='tiles-wrap animated'>
 ";
-
+/*
     include_once 'model/table/ImagesTable.class.php';
     $imagesTable = new ImagesTable($db);
     $images = $imagesTable->getImagesWithAlbumId($album['id']);
@@ -74,7 +76,7 @@ $galleryHTML = "
             </li>
         ";
     }
-
+*/
 $galleryHTML .= "
             </ul>
         </div>
