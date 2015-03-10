@@ -48,9 +48,15 @@
         wookmark;
 
         for (var i = 0; i < tileCount; i++) {
-            var location = 'img/gallery/' + albumDir + '/' + images[i].name;
+            var location = 'img/gallery/' + albumDir + '/' + encodeURIComponent(images[i].name);
             console.log('location: ' + location);
-            var newItemHtml = '<li class="tile-loading"><img src="' + location + '"><p>' + albumDate + '</p></li>';
+            var newItemHtml = '\
+                <li class="tile-loading">\
+                    <a href=' + location + ' class="fancybox" data-fancybox-group="gallery" title="title here">\
+                        <img src="' + location + '"><p>' + albumDate + '</p>\
+                    </a>\
+                </li>';
+            //var newItemHtml = '<li class="tile-loading"><img src="' + location + '"><p>' + albumDate + '</p></li>';
             $container.append(newItemHtml);
         }
     
