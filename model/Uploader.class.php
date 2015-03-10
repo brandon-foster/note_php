@@ -31,11 +31,21 @@ class Uploader {
     // move file if ready, else throw exception
     public function save() {
         if ($this->readyToUpload()) {
+            $RandomNum   = time();
+            
+            $ImageName      = str_replace(' ','-',strtolower($this->filename));
+            $ImageExt = substr($ImageName, strrpos($ImageName, '.'));
+            $ImageExt       = str_replace('.','',$ImageExt);
+            $ImageName      = preg_replace("/\.[^.\s]{3,4}$/", "", $ImageName);
+            $NewImageName = $ImageName.'-'.$RandomNum.'.'.$ImageExt;
+            
+            move_uploaded_file($this->fileData, "{$this->destination}/" . $NewImageName);
+            
             // place image in file system
-            move_uploaded_file(
+            /*move_uploaded_file(
 	          $this->fileData,
 	          "{$this->destination}/" . basename($this->filename)
-            );
+            );*/
         } else {
             $ex = new Exception($this->errorMessage);
             throw $ex;

@@ -8,7 +8,8 @@ include_once 'db.php';
 if (isset($_GET['api'])) {
     $api = $_GET['api'];
     
-    if ($api === 'album-json') {
+    if ($api === 'album-json'
+        || $api === 'upload-photos') {
         include_once "api/{$api}.php";
     }
 }

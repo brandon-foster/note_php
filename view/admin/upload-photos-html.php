@@ -19,11 +19,15 @@ $pageData->setBodyClass('body-upload-photos');
 // add css
 $pageData->addCss('res/foundation-icons/foundation-icons.css');
 $pageData->addCss('css/admin/pretty-form.css');
+$pageData->addCss('res/uploadfilemulti/css/uploadfilemulti.css');
 // javascript input focus code (added to $pageData before return'ed)
 // focus on album-name by default
 if (!isset($jsFocusCode)) {
     $jsFocusCode = '$("select[name=album-id]").focus();';
 }
+// add js
+$pageData->addJs('res/uploadfilemulti/js/jquery.fileuploadmulti.min.js');
+$pageData->addJs('js/multifileupload-init.js');
 
 // set js focus script
 $pageData->addScriptCode($jsFocusCode);
@@ -45,10 +49,13 @@ while ($album = $albums->fetch(PDO::FETCH_ASSOC)) {
 
 $out = "
 <div class='row center'>
+    <div id='mulitplefileuploader'>Upload</div>
+    <div id='status'></div>
+
     <div class='signup-panel'>
         <h2 class='welcome'>Upload Photo</h2>
         {$uploadMessage}
-        <form action='admin.php?page=upload-photos' method='POST' enctype='multipart/form-data'>
+        <form>
             <div class='row collapse'>
                 <div class='small-2 medium-1 columns '>
                     <span class='prefix'><i class='fi-folder'></i> <em class='required'></em></span>
@@ -60,16 +67,6 @@ $out = "
                     </select>
                 </div>
             </div>
-            <div class='row collapse'>
-                <div class='small-12 columns'>
-                    <em class='required'></em>
-                    <input type='file' name='user-image[]' multiple />
-                    
-                    <input type='checkbox' name='album-cover' value='yes' id='album-cover-checkbox' />
-                    <label for='album-cover-checkbox'>Set as album cover</label>
-                </div>
-            </div>
-            <input type='submit' name='upload' value='Upload' class='button' />
         </form>
     </div>
 </div>";
