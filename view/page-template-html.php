@@ -13,6 +13,7 @@ return "
 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 {$pageData->getCss()}
 <title>{$pageData->getTitle()}</title>
+{$pageData->getJsHead()}
 {$pageData->getScriptCodeHead()}
 </head>
 <body class='{$pageData->getBodyClass()}'>

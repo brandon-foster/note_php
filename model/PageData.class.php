@@ -8,6 +8,7 @@ class PageData {
     private $content = "";
     private $footer = "";
     private $js = "";
+    private $jsHead = "";
     private $scriptCode = "";
     private $scriptCodeHead = "";
     
@@ -64,8 +65,14 @@ class PageData {
     public function addJs($src) {
         $this->js .= "<script type='text/javascript' src='{$src}'></script>";
     }
+    public function addJsHead($src) {
+        $this->jsHead .= "<script type='text/javascript' src='{$src}'></script>";
+    }
     public function getJs() {
         return $this->js;
+    }
+    public function getJsHead() {
+        return $this->jsHead;
     }
 
     public function addScriptCode($code) {

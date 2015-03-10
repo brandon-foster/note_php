@@ -35,11 +35,13 @@ else {
     $pageData->addCss('/res/foundation-icons/foundation-icons.css');
     $pageData->addCss('/css/footer.css');  
     
-    // FOUNDATION JS
+    // MODERNIZR
+    $pageData->addJsHead('/res/foundation-5.5.0/js/vendor/modernizr.js');
+    // JQUERY
     $pageData->addJs('/res/foundation-5.5.0/js/vendor/jquery.js');
+    // FOUNDATION JS
     $pageData->addJs('/res/foundation-5.5.0/js/vendor/fastclick.js');
     $pageData->addJs('/res/foundation-5.5.0/js/foundation.min.js');
-    $pageData->addScriptCode('$(document).foundation();');
     
     // NAVIGATION
     $nav = include_once 'controller/nav.php';
@@ -66,6 +68,9 @@ else {
     // FOOTER
     $footer = include_once 'view/component/footer-html.php';
     $pageData->setFooter($footer);
+    
+    // INITIALIZE FOUNDATION    
+    $pageData->addScriptCode('$(document).foundation();');    
     
     // load and echo the template
     $page = include_once 'view/page-template-html.php';
