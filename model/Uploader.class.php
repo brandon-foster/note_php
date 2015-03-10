@@ -6,6 +6,7 @@ class Uploader {
     private $errorMessage = "";
     private $errorCode = "";
 
+    /*
     public function __construct($key, $customName=NULL) {
         if (isset($customName)) {
             $this->filename = $customName;
@@ -14,6 +15,13 @@ class Uploader {
         }
         $this->fileData = $_FILES[$key]['tmp_name'];
         $this->errorCode = ($_FILES[$key]['error']);
+    }
+    */
+    
+    public function __construct($filename, $fileData, $errorCode) {
+        $this->filename = $filename;    
+        $this->fileData = $fileData;
+        $this->errorCode = $errorCode;
     }
 
     public function saveInDir($dir) {

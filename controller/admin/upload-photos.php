@@ -17,58 +17,55 @@ if (isset($_POST['upload'])) {
         $selectedAlbum = $albumsTable->getAlbumNameById($albumId);
         
         // check that the user selected an image to upload
-        if (file_exists($_FILES['user-image']['tmp_name'])) {
-            
-            // check if the user submitted a custom file name, to set $imageName
-            if (!empty($_POST['user-image-name'])) {
-                $userImageName = $_POST['user-image-name'];
-                $imageName = $userImageName;
-                $uploader = new Uploader('user-image', $userImageName);
-            }
-            // if the user did not submit a custom file name, use the name of 
-            // the file he/she is uploading
-            else {
-                $imageName = $_FILES['user-image']['name'];
-                $uploader = new Uploader('user-image');
-            }
-            
-            $albumName = StringFunctions::formatAsQueryString($selectedAlbum);
+        $numImages = count($_FILES['user-image']['name']);
+        if (file_exists($_FILES['user-image']['tmp_name'][0])) {     
 
-            // attempt to store image in the file system
-            $uploader->saveInDir("img/gallery/{$albumName}");
-            try {
-                $uploader->save();
-                $uploadMessage = "<p class='failure-message'>Image <em><strong>{$imageName}</strong></em> successfully uploaded into album <em><strong>{$albumName}</strong></em></p>";
+            for ($i = 0; $i < $numImages; $i++) {
+                // attempt to store image in the file system
+                $filename = $_FILES['user-image']['name'][$i];
+                $fileData = $_FILES['user-image']['tmp_name'][$i];
+                $errorCode = $_FILES['user-image']['error'][$i];
                 
-                // store image details in db
-                include_once 'model/table/ImagesTable.class.php';
-                $imagesTable = new ImagesTable($db);
+                $uploader = new Uploader($filename, $fileData, $errorCode);
+                $albumName = StringFunctions::formatAsQueryString($selectedAlbum);
+                $uploader->saveInDir("img/gallery/{$albumName}");
                 
-                // set as album cover if user requested
-                if (isset($_POST['album-cover'])) {
-                    // get id of current album cover
-                    $currentAlbumCoverId = $imagesTable->getAlbumCoverIdByAlbumId($albumId);
-                    // unset the album_cover status for the image that is the current album cover
-                    $imagesTable->setAlbumCoverValue($currentAlbumCoverId, 0);
+                try {
+                    $uploader->save();
+                
+                    // store image details in db
+                    include_once 'model/table/ImagesTable.class.php';
+                    $imagesTable = new ImagesTable($db);
+                
+                    // set as album cover if user requested
+                    if (isset($_POST['album-cover'])) {
+                        // get id of current album cover
+                        $currentAlbumCoverId = $imagesTable->getAlbumCoverIdByAlbumId($albumId);
+                        // unset the album_cover status for the image that is the current album cover
+                        $imagesTable->setAlbumCoverValue($currentAlbumCoverId, 0);
+                
+                        $albumCover = 1;
+                    }
+                    // set as album cover if album is empty
+                    else if ($albumsTable->getCountById($albumId) === '0') {
+                        $albumCover = 1;
+                    }
+                    else {
+                        $albumCover = 0;
+                    }
+                
+                    // store image in db
+                    $imageName = $filename;
+                    $imagesTable->addImage($imageName, $albumId, NULL, NULL, $albumCover);
+                
+                    // increment count in appropriate album
+                    $albumsTable->incrementCountById($albumId);
                     
-                    $albumCover = 1;
+                    $imageOrImages = StringFunctions::singularOrPlural('Image', $numImages);
+                    $uploadMessage = "<p class='failure-message'>{$imageOrImages} successfully uploaded into album <em><strong>{$albumName}</strong></em></p>";
+                } catch (Exception $ex) {
+                    $uploadMessage = "<p class='failure-message'>{$ex->getMessage()}</p>";
                 }
-                // set as album cover if album is empty
-                else if ($albumsTable->getCountById($albumId) === '0') {
-                    $albumCover = 1;
-                }
-                else {
-                    $albumCover = 0;
-                }
-                
-                
-                // store image in db
-                $imagesTable->addImage($imageName, $albumId, NULL, NULL, $albumCover);
-                
-                // increment count in appropriate album
-                $albumsTable->incrementCountById($albumId);
-            } catch (Exception $ex) {
-                $uploadMessage = "<p class='failure-message'>{$ex->getMessage()}</p>";
             }
         }
         else {

@@ -61,17 +61,9 @@ $out = "
                 </div>
             </div>
             <div class='row collapse'>
-                <div class='small-2 medium-1 columns '>
-                    <span class='prefix'><i class='fi-pencil'></i></span>
-                </div>
-                <div class='small-10 medium-11 columns '>
-                    <input type='text' name='user-image-name' placeholder='image name' />
-                </div>
-            </div>
-            <div class='row collapse'>
                 <div class='small-12 columns'>
                     <em class='required'></em>
-                    <input type='file' name='user-image' />
+                    <input type='file' name='user-image[]' multiple />
                     
                     <input type='checkbox' name='album-cover' value='yes' id='album-cover-checkbox' />
                     <label for='album-cover-checkbox'>Set as album cover</label>
