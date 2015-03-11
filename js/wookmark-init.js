@@ -64,7 +64,7 @@
         var newItemHtml = '';
         var sumNewItemsHtml = '';
         for (var i = 0; i < stepSize && imageIndex.val < globalAlbum.images.length; i++) {
-            var location = 'img/gallery/' + albumDir + '/' + encodeURIComponent(images[imageIndex.val].name);
+            var location = '/img/gallery/' + albumDir + '/' + encodeURIComponent(images[imageIndex.val].name);
             newItemHtml = '\
                 <li class="tile-loading">\
                     <a href=' + location + ' class="fancybox" data-fancybox-group="gallery">\

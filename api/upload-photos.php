@@ -38,7 +38,7 @@ if (isset($_GET['album-id']) && strlen($_GET['album-id']) !== 0) {
         $numImages = count($_FILES['user-image']['name']);
         
         $albumName = StringFunctions::formatAsQueryString($selectedAlbum);
-        $output_dir = 'img/gallery/' . $albumName;
+        $output_dir = $_SERVER['DOCUMENT_ROOT'] . '/img/gallery/' . $albumName;
         if(!is_array($_FILES['user-image']['name'])) //single file
         {
             $RandomNum   = time();
