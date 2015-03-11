@@ -16,7 +16,11 @@
         closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
 
         if (closeToBottom) {
-            $('body').spin('modal');
+            var lock = 0;
+            if (lock === 0) {
+                $('body').spin('modal');   
+                lock = 1;
+            }
             
             var $nextGroupHtml = getGroupOfTiles(imageIndex.val, 5);
             $container.append($nextGroupHtml);
@@ -35,8 +39,10 @@
                     // Fade in items after layout
                     setTimeout(function() {
                         $('#gallery-container li').css('opacity', 1);
-                        $('body').spin('modal');
                     }, 300);
+                    setTimeout(function() {
+                        $('body').spin('modal');
+                    }, 400);
                 });
 
             }).progress(function (instance, image) {
@@ -99,8 +105,10 @@
                 // Fade in items after layout
                 setTimeout(function() {
                     $('#gallery-container li').css('opacity', 1);
-                    $('body').spin('modal');
                 }, 300);
+                setTimeout(function() {
+                    $('body').spin('modal');
+                }, 400);
             });
         }).progress(function (instance, image) {
             console.log('progress');
