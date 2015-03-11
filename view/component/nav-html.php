@@ -119,4 +119,4 @@ return "
         </section>
     </nav>
 </div>
-<div class='spacer'></div>";
+<div class='spacer'>&nbsp;</div>";
