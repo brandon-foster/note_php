@@ -35,7 +35,14 @@ $pageData->addScriptCode("
         openEffect: 'fade',
         closeEffect: 'fade',
         prevEffect: 'fade',
-        nextEffect: 'fade'
+        nextEffect: 'fade',
+        helpers: {
+            // keep from jumping to top of window
+            // http://stackoverflow.com/questions/13547007/fancybox2-fancybox-causes-page-to-to-jump-to-the-top
+            overlay: {
+                locked: false
+            }
+        }
     });
 ");
 
