@@ -1,6 +1,6 @@
 <?php 
 // footer code proudly found elsewhere: http://patterntap.com/code/footer
-return "
+$oldFooter = "
 <!-- Footer -->
 <footer class='footer'>
 <div class='row full-width'>
@@ -34,3 +34,21 @@ return "
     </div>
 </div>
 </footer>";
+
+
+return "
+<div class='footer-wrapper'>
+	<div class='row footer'>
+		<p class='small'>
+            Thanks to
+            <a href='http://foundation.zurb.com/' target='_blank'><span class='xsmall underline'><strong>ZURB Foundation</strong></span></a>
+             for an elegant responsive front end framework, and
+            <a href='https://github.com/desandro/imagesloaded' target='_blank'><span class='xsmall underline'><strong>imagesloaded</strong></span></a>
+            , <a href='https://github.com/GBKS/Wookmark-jQuery' target='_blank'><span class='xsmall underline'><strong>wookmark</strong></span></a>
+            , and
+            <a href='http://fgnass.github.io/spin.js/' target='_blank'><span class='xsmall underline'><strong>spin.js</strong></span></a>
+            for all the parts that go in putting together a nice photo gallery.
+        </p>
+		<p class='xsmall'>made with <a href='http://on-the-web.net/' target='_blank'><i class='heart light'>&#9829;</i></a> in Blacksburg, VA</p>
+	</div>
+</div>";

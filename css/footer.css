@@ -1,43 +1,72 @@
-/* proudly found elsewhere: http://patterntap.com/code/footer */
+@CHARSET "ISO-8859-1";
 
-.full-width {
-    max-width: 1400px;
+.footer-wrapper {
+    min-height: 100%;
+    position: relative;
 }
 
 .footer {
-    margin-top: 200px;
-    background-color: #2980b9;
-    padding: 2rem 4rem;
+    min-width: 100%;
+    height: 120px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #2980B9;
+    padding: 10px;
+    color: #fff;
+}
+
+.footer .underline {
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.footer a,
+.footer a:link,
+.footer a:visited {
+    color: #fff;
+}
+
+.footer a:active,
+.footer a:hover {
+    /*color: #e0e0e0;*/
+    opacity: 1;
+}
+
+.footer p {
     text-align: center;
-    color: #fff;
-}
-.footer i {
-    font-size: 100px;
-}
-
-.footer h4 {
-    color: #fff;
-    font-size: 1em;
-    font-weight: 400;
-    text-transform: uppercase;
-    margin-top: 2.5rem;
-    margin-bottom: 10px;
-}
-.footer p, .footer a {
-    font-weight: 300;
-    font-size: .8em;
-    color: #fff;
+    vertical-align: middle;
+    margin-bottom: 6px;
+    /*background-color: #e0e0e0;*/
 }
 
-@media only screen and (min-width: 40.063em) {
-    .footer .columns:nth-child(n+2) {
-        border-left: 1px solid #b3b3b3;
-        min-height: 280px;
-  }
+.footer .small {
+    font-size: small;
 }
-.footer-links {
-    list-style-type: none;
+
+.normal {
+    font-style: normal;
 }
-.footer-links li {
-    margin-top: .5em;
+
+.footer .xsmall {
+    font-size: x-small;
+}
+
+.footer .xxsmall {
+    font-size: xx-small;
+}
+
+.footer p:nth-child(1) {
+    padding-top: 20px;
+}
+
+.heart {
+    color: #d4203e;
+    font-size: x-large;
+}
+
+.heart:hover {
+    text-shadow: /*0 0 0px #000000,*/ 0px 0px 10px #fff;
+    color: #ff0000;
 }
