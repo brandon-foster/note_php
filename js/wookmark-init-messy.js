@@ -1,4 +1,5 @@
 (function ($) {
+    // Instantiate wookmark after all images have been loaded
     var wookmark;
     var container = '#gallery-container';
     var $container = $(container);
@@ -13,35 +14,59 @@
     var onScroll = function() {
         // Check if we're within 100 pixels of the bottom edge of the broser window.
         var winHeight = window.innerHeight ? window.innerHeight : $window.height(), // iphone fix
-        closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
+        closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 300);
 
         if (closeToBottom) {
-            $('body').spin('modal');
-            
+            // Get the first ten items from the grid, clone them, and add them to the bottom of the grid
+            /*var $items = $('li', $container),
+            $firstTen = $items.slice(0, 10).clone().css('opacity', 0);
+            $container.append($firstTen);*/
             var $nextGroupHtml = getGroupOfTiles(imageIndex.val, 5);
             $container.append($nextGroupHtml);
             
             $container.imagesLoaded(container, function () {
                 console.log('imagesLoaded');
-                //$(image.img).closest('li').removeClass('tile-loading');
-                $('#gallery-container li').removeClass('tile-loading');
+                //$('li').removeClass('tile-loading');
+
+                //wookmark.updateOptions();
+            }).progress(function (instance, image) {
+                $(image.img).closest('li').removeClass('tile-loading');
+                wookmark.updateOptions();
+            });
+            
+            wookmark = new Wookmark(container, {
+                offset: 5, // Optional, the distance between grid items
+                outerOffset: 10, // Optional, the distance to the containers border
+                itemWidth: 210 // Optional, the width of a grid item
+            });
+            wookmark.initItems();
+            wookmark.layout(true, function () {
+                // Fade in items after layout
+                setTimeout(function() {
+                    $('#gallery-container li').css('opacity', 1);
+                }, 300);
+            });
+            
+            /*imagesLoaded(container, function () {
+                console.log('imagesLoaded');
                 wookmark = new Wookmark(container, {
                     offset: 5, // Optional, the distance between grid items
                     outerOffset: 10, // Optional, the distance to the containers border
-                    itemWidth: 310 // Optional, the width of a grid item
+                    itemWidth: 210 // Optional, the width of a grid item
                 });
-                wookmark.initItems();
-                wookmark.layout(true, function () {
-                    // Fade in items after layout
-                    setTimeout(function() {
-                        $('#gallery-container li').css('opacity', 1);
-                        $('body').spin('modal');
-                    }, 300);
-                });
-
-            }).progress(function (instance, image) {
-                console.log('progress resize');
+                
+                $('li').removeClass('tile-loading');
+                wookmark.updateOptions();
+            });*/
+            /*
+            wookmark.initItems();
+            wookmark.layout(true, function () {
+                // Fade in items after layout
+                setTimeout(function() {
+                    $nextGroupHtml.css('opacity', 1);
+                }, 300);
             });
+            */
         }
     };
 
@@ -61,14 +86,25 @@
             var location = 'img/gallery/' + albumDir + '/' + encodeURIComponent(images[imageIndex.val].name);
             newItemHtml = '\
                 <li class="tile-loading">\
-                    <a href=' + location + ' class="fancybox" data-fancybox-group="gallery">\
+                    <a href=' + location + ' class="fancybox" data-fancybox-group="gallery" title="title here">\
                         <img src="' + location + '"><p>' + albumDate + '</p>\
                     </a>\
                 </li>';
             sumNewItemsHtml += newItemHtml;
             imageIndex.val++;
+            //$container.append(newItemHtml);
         }
         
+        /*
+        $container.imagesLoaded()
+        .always(function () {
+            console.log('always');
+        })
+        .progress(function (instance, image) {
+            $(image.img).closest('li').removeClass('tile-loading');
+            wookmark.updateOptions();
+        });
+        */
         var $nextGroupHtml = $('<div/>').html(sumNewItemsHtml).contents().css('opacity', 0);
 
         return $nextGroupHtml;
@@ -76,8 +112,6 @@
     
     // callback for xhr from ajaxTiles()
     var handleAlbumJson = function(album) {
-        $('body').spin('modal');
-
         globalAlbum = album;
         
         console.log('in callback');
@@ -87,24 +121,44 @@
     
         $container.imagesLoaded(container, function () {
             console.log('imagesLoaded');
-            //$(image.img).closest('li').removeClass('tile-loading');
-            $('#gallery-container li').removeClass('tile-loading');
+            //$('li').removeClass('tile-loading');
+
+            //wookmark.updateOptions();
+        }).progress(function (instance, image) {
+            $(image.img).closest('li').removeClass('tile-loading');
             wookmark = new Wookmark(container, {
                 offset: 5, // Optional, the distance between grid items
                 outerOffset: 10, // Optional, the distance to the containers border
-                itemWidth: 310 // Optional, the width of a grid item
+                itemWidth: 210 // Optional, the width of a grid item
             });
             wookmark.initItems();
             wookmark.layout(true, function () {
                 // Fade in items after layout
                 setTimeout(function() {
                     $('#gallery-container li').css('opacity', 1);
-                    $('body').spin('modal');
                 }, 300);
             });
-        }).progress(function (instance, image) {
-            console.log('progress');
         });
+        /*.done(function() {
+            $('li').removeClass('tile-loading');
+            wookmark.updateOptions();
+        });*/
+        
+        /*// Initialize Wookmark
+        wookmark = new Wookmark(container, {
+          offset: 5, // Optional, the distance between grid items
+          outerOffset: 10, // Optional, the distance to the containers border
+          itemWidth: 210 // Optional, the width of a grid item
+        });
+    
+        $container.imagesLoaded()
+        .always(function () {
+            console.log('always');
+        })
+        .progress(function (instance, image) {
+            $(image.img).closest('li').removeClass('tile-loading');
+            wookmark.updateOptions();
+        });*/
     };
     
     var ajaxTiles = function() {

@@ -22,27 +22,13 @@ $pageData->addCss('http://fonts.googleapis.com/css?family=Oswald');
 $pageData->addCss('res/fancybox/jquery.fancybox.css', "media='screen'");
 // fancybox js
 $pageData->addJs('res/fancybox/jquery.fancybox.pack.js');
-/*
-// imagesloaded
-$pageData->addJs('js/jquery.imagesloaded.js');
-*/
+// spin
+$pageData->addJs('res/spin/jquery.spin.js');
 // wookmark
 $pageData->addJs('res/imagesloaded/imagesloaded.pkgd.min.js');
 $pageData->addJs('res/wookmark/wookmark.js');
 $pageData->addJs('js/wookmark-init.js');
-/*
-$pageData->addScriptCodeHead('
-    addEventListener("load", function() {
-        setTimeout(hideURLbar, 0);
-    }, false);
-        
-    function hideURLbar() {
-        window.scrollTo(0,1);
-    }
-');
-// custom js
-$pageData->addJs('js/album.js');
-*/
+
 // fancybox js code
 $pageData->addScriptCode("
     $('.fancybox').fancybox({
