@@ -9,7 +9,8 @@ if (isset($_GET['api'])) {
     $api = $_GET['api'];
     
     if ($api === 'album-json'
-        || $api === 'upload-photos') {
+        || $api === 'upload-photos'
+        || $api === 'deletePost') {
         include_once "api/{$api}.php";
     }
 }

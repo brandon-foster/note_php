@@ -14,6 +14,10 @@ $pageData->setTitle("Posts &middot; {$categoryName}");
 $categoryNameLower = strtolower($categoryName);
 $categoryNameDashed = StringFunctions::spaceToDash($categoryNameLower);
 $pageData->setBodyClass("body-{$categoryNameDashed}");
+// add css
+$pageData->addCss('/css/category.css');
+// add js
+$pageData->addJs('/js/category/category.js');
 
 $categoryPostsHTML = '';
 while ($post = $categoryPosts->fetch(PDO::FETCH_ASSOC)) {
@@ -27,10 +31,18 @@ while ($post = $categoryPosts->fetch(PDO::FETCH_ASSOC)) {
     $href = "/categories/{$categoryNameDashed}/{$titleDashed}";
 
     $ellipses = (strlen($postPreviewText) === 40) ? '... (<em>read more</em>)' : '';
+    
+    if (isset($_SESSION['user'])) {
+        $deleteButton = "<i class='fi-trash modification-action delete-post' data-post-id='{$postId}'></i>";
+    } else {
+        $deleteButton = '';
+    }
+    
     $categoryPostsHTML .= "
         <div class='row'>
             <div class='panel'>
-                <a href='{$href}'>
+                {$deleteButton}
+                <a class='anchor' href='{$href}'>
                     <h3>{$postTitle}</h3>
                     <p>{$postDate}</p> 
                     <p>{$postPreviewText}{$ellipses}</p>
@@ -43,11 +55,11 @@ $quantity = $category['count'];
 $postOrPosts = StringFunctions::singularOrPlural('post', $quantity);
 $isOrAre = StringFunctions::isOrAre($quantity);
 $out = "
-    <div class='small-12 medium-10 columns'>";
+    <div id='category-posts' class='small-12 medium-10 columns'>";
 $out .= "
         <div class='row'>
             <h1>{$category['name']}</h1>
-            <p>There {$isOrAre} {$quantity} {$postOrPosts} in this category.</p>
+            <p>There <span id='quantity-description'>{$isOrAre} <span id='quantity'>{$quantity}</span> {$postOrPosts}</span> in this category.</p>
         </div>";
 $out .= $categoryPostsHTML;
 $out .= '</div>';

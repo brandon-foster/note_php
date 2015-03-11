@@ -132,7 +132,8 @@ class PostCategoriesTable extends Table {
                 ':id' => $id
         );
 
-        $this->makeStatement($sql, $params);
+        $result = $this->makeStatement($sql, $params);
+        return $result;
     }
 
     /*

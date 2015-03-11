@@ -1,0 +1,13 @@
+[class|=fi].modification-action {
+    float: right;
+    cursor: pointer;
+}
+
+.message {
+    background-color: #007095;
+    padding: 10px;
+    margin: 20px;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+}
