@@ -19,11 +19,11 @@
     color: #999;
 }
 
-.signup-panel form input[type=text],
-.signup-panel form input[type=email],
-.signup-panel form input[type=password],
 .signup-panel form span.prefix,
-.signup-panel form select {
+.signup-panel form div>input[type=text],
+.signup-panel form div>input[type=email],
+.signup-panel form div>input[type=password],
+.signup-panel form div>select {
     height: 50px;
 }
 
