@@ -1,5 +1,4 @@
 RewriteEngine On
-RewriteRule ^photos$  index.php?page=photos
-Rewriterule ^categories/?$ index.php?page=categories
-RewriteRule ^categories/([^/]+)/?$ index.php?page=categories&category=$1
-RewriteRule ^categories/([^/]+)/([^/]+)/?$ index.php?page=categories&category=$1&title=$2
+
+RewriteCond %{REQUEST_URI} !^/notes/.*$
+RewriteRule ^(.*)$ /notes/$1 [QSA,L]
