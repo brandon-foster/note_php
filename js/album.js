@@ -84,7 +84,7 @@
       var tileItemsHtml = '';
       
       for (var i = 0; i < albumSize; i++) {
-          var location = 'img/gallery/' + albumDir + '/' + images[i].name;
+          var location = './img/gallery/' + albumDir + '/' + images[i].name;
           console.log(location);
           
           var tile = "\
@@ -126,7 +126,7 @@
       $.ajax({
           type : 'GET',
           dataType : 'json',
-          url : '/index.php',
+          url : './index.php',
           data : {
               'api' : 'album-json',
               'album-id' : $('#main').attr('data-album-id')

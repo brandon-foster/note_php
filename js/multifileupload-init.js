@@ -3,7 +3,7 @@ $(document).ready(function()
     // handler for select option change
     $('select[name=album-id]').change(function() {
         var albumId = $('select[name=album-id] option:selected').val();
-        var theUrl = "index.php?api=upload-photos&album-id=" + albumId;
+        var theUrl = "./index.php?api=upload-photos&album-id=" + albumId;
         setUpFileUpload(theUrl);
     });
     

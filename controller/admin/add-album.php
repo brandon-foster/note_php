@@ -18,7 +18,7 @@ if (isset($_POST['add-album'])) {
 
                 // create directory
                 $oldMask = umask(0);
-                mkdir("img/gallery/$dirFormatAlbumName", 0777, true);
+                mkdir(getcwd() . "/img/gallery/$dirFormatAlbumName", 0777, true);
                 umask($oldMask);
                 
                 // create new nav item for album
@@ -28,7 +28,7 @@ if (isset($_POST['add-album'])) {
                 $name = $newAlbumName;
                 $parentId = $navItemsTable->getIdByName('Photos');
                 $hasChild = 0;
-                $href = "/index.php?page=photos&album={$dirFormatAlbumName}";
+                $href = "./index.php?page=photos&album={$dirFormatAlbumName}";
                 $adminOnly = 0;
                 $navItemsTable->addNavItem(
                     $name,

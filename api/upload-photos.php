@@ -38,7 +38,7 @@ if (isset($_GET['album-id']) && strlen($_GET['album-id']) !== 0) {
         $numImages = count($_FILES['user-image']['name']);
         
         $albumName = StringFunctions::formatAsQueryString($selectedAlbum);
-        $output_dir = $_SERVER['DOCUMENT_ROOT'] . '/img/gallery/' . $albumName;
+        $output_dir = getcwd() . '/img/gallery/' . $albumName;
         if(!is_array($_FILES['user-image']['name'])) //single file
         {
             $RandomNum   = time();
@@ -51,8 +51,15 @@ if (isset($_GET['album-id']) && strlen($_GET['album-id']) !== 0) {
             $ImageName = preg_replace('/\.[^.\s]{3,4}$/', '', $ImageName);
             $NewImageName = $ImageName.'-'.$RandomNum.'.'.$ImageExt;
 
+            // if directory does not exist, create it
+            if (file_exists($output_dir) == false) {
+                mkdir($output_dir);
+            }
+            
             // store image on disk
-            move_uploaded_file($_FILES['user-image']['tmp_name'], $output_dir . '/' . $NewImageName);
+            if (move_uploaded_file($_FILES['user-image']['tmp_name'], $output_dir . '/' . $NewImageName) == false) {
+                die("something wrong happened");
+            }
 
             // include model
             include_once 'model/table/ImagesTable.class.php';

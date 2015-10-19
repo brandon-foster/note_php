@@ -49,6 +49,6 @@ return "
             <a href='http://fgnass.github.io/spin.js/' target='_blank'><span class='xsmall underline'><strong>spin.js</strong></span></a>
             for all the parts that go in putting together a nice photo gallery.
         </p>
-		<p class='xsmall'>made with <a href='http://on-the-web.net/' target='_blank'><i class='heart light'>&#9829;</i></a> in Blacksburg, VA</p>
+		<p class='xsmall'>made with <a href='/' target='_blank'><i class='heart light'>&#9829;</i></a> in Blacksburg, VA</p>
 	</div>
 </div>";

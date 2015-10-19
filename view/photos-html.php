@@ -48,11 +48,11 @@ else {
             $imageCoverName = $imagesTable->getAlbumCoverNameByAlbumId($album['id']);
     
             // build the album cover src
-            $src = "img/gallery/{$dirFormatName}/{$imageCoverName}";
+            $src = "./img/gallery/{$dirFormatName}/{$imageCoverName}";
     
             $albumsHTML .= "
                 <div class='large-4 small-6 columns'>
-                    <a class='th' href='index.php?page=photos&album={$dirFormatName}'><img alt='{$album['name']}' src='{$src}'></a>
+                    <a class='th' href='./index.php?page=photos&album={$dirFormatName}'><img alt='{$album['name']}' src='{$src}'></a>
                     <div cclass='panel'>
                     <p>{$album['name']} &middot; {$album['count']} photos</p>
                     </div>
