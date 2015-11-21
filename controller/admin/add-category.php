@@ -28,7 +28,7 @@ function createCategoryNavEntry($categoryName, $db) {
 
             // href
             $queryStringFormatedName = StringFunctions::formatAsQueryString($categoryName);
-            $href = "/categories/{$queryStringFormatedName}";
+            $href = "./index.php?page=categories&category={$queryStringFormatedName}";
 
             // create the nav item in the nav_items table
             // name, parent_id, has_child, href, admin_only
