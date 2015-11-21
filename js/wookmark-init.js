@@ -6,27 +6,31 @@
     var $document = $(document);
     var imageIndex = { val : 0 };
     var globalAlbum = '';
-
+    var noMoreImages = false;
+    var albumCount = 0;
+    var numImagesLoadedSoFar = 0;
+    
     /**
      * When scrolled all the way to the bottom, add more tiles
      */
     var onScroll = function() {
-        // Check if we're within 100 pixels of the bottom edge of the broser window.
+        // Check if we're within 300 pixels of the bottom edge of the broser window.
         var winHeight = window.innerHeight ? window.innerHeight : $window.height(), // iphone fix
-        closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
+        closeToBottom = ($window.scrollTop() + winHeight > $document.height() - window.innerHeight);
+        //$('title').html("winHeight: " + winHeight);
+        //$('title').html("$window.scrollTop(): " + $window.scrollTop());
+        //$('title').html("$document.height(): " + $document.height());
 
-        if (closeToBottom) {
-            var lock = 0;
-            if (lock === 0) {
-                $('body').spin('modal');   
-                lock = 1;
-            }
-            
+        if (closeToBottom && globalAlbum != '' && !noMoreImages && numImagesLoadedSoFar != albumCount) {
+            $('title').html("CLOSE TO BOTTOM");
             var $nextGroupHtml = getGroupOfTiles(imageIndex.val, 5);
+            if ($nextGroupHtml.length == 0) {
+                noMoreImages = true;
+            }
             $container.append($nextGroupHtml);
             
             $container.imagesLoaded(container, function () {
-                console.log('imagesLoaded');
+                console.log('imagesLoaded in onScroll');
                 //$(image.img).closest('li').removeClass('tile-loading');
                 $('#gallery-container li').removeClass('tile-loading');
                 wookmark = new Wookmark(container, {
@@ -44,7 +48,7 @@
                         $('body').spin('modal');
                     }, 400);
                 });
-
+                $('body').spin('modal');
             }).progress(function (instance, image) {
                 console.log('progress resize');
             });
@@ -63,7 +67,7 @@
         
         var newItemHtml = '';
         var sumNewItemsHtml = '';
-        for (var i = 0; i < stepSize && imageIndex.val < globalAlbum.images.length; i++) {
+        for (var i = 0; i < stepSize && imageIndex.val < albumCount; i++) {
             var location = './img/gallery/' + albumDir + '/' + encodeURIComponent(images[imageIndex.val].name);
             newItemHtml = '\
                 <li class="tile-loading">\
@@ -73,26 +77,28 @@
                 </li>';
             sumNewItemsHtml += newItemHtml;
             imageIndex.val++;
+            numImagesLoadedSoFar++;
         }
         
         var $nextGroupHtml = $('<div/>').html(sumNewItemsHtml).contents().css('opacity', 0);
-
+        console.log("numImagesLoadedSoFar: " + numImagesLoadedSoFar);
         return $nextGroupHtml;
     };
     
     // callback for xhr from ajaxTiles()
     var handleAlbumJson = function(album) {
+        albumCount = album.count;
         $('body').spin('modal');
 
         globalAlbum = album;
         
-        console.log('in callback');
+        console.log('in callback handleAlbumJson');
 
-        $initialTiles = getGroupOfTiles(imageIndex.val, 10);
+        $initialTiles = getGroupOfTiles(imageIndex.val, 5);
         $container.append($initialTiles);
     
         $container.imagesLoaded(container, function () {
-            console.log('imagesLoaded');
+            console.log('imagesLoaded in handleAlbumJson');
             //$(image.img).closest('li').removeClass('tile-loading');
             $('#gallery-container li').removeClass('tile-loading');
             wookmark = new Wookmark(container, {
@@ -113,6 +119,7 @@
         }).progress(function (instance, image) {
             console.log('progress');
         });
+        $('body').stop('modal');
     };
     
     var ajaxTiles = function() {
