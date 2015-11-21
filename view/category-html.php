@@ -15,9 +15,9 @@ $categoryNameLower = strtolower($categoryName);
 $categoryNameDashed = StringFunctions::spaceToDash($categoryNameLower);
 $pageData->setBodyClass("body-{$categoryNameDashed}");
 // add css
-$pageData->addCss('/css/category.css');
+$pageData->addCss('./css/category.css');
 // add js
-$pageData->addJs('/js/category/category.js');
+$pageData->addJs('./js/category/category.js');
 
 $categoryPostsHTML = '';
 while ($post = $categoryPosts->fetch(PDO::FETCH_ASSOC)) {
@@ -28,7 +28,7 @@ while ($post = $categoryPosts->fetch(PDO::FETCH_ASSOC)) {
 
     $titleDashed = strtolower($postTitle);
     $titleDashed = StringFunctions::spaceToDash($titleDashed);
-    $href = "/categories/{$categoryNameDashed}/{$titleDashed}";
+    $href = "./index.php?page=categories&category={$categoryNameDashed}&title={$titleDashed}";
 
     $ellipses = (strlen($postPreviewText) === 40) ? '... (<em>read more</em>)' : '';
     
