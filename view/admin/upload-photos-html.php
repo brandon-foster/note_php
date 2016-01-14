@@ -26,8 +26,8 @@ if (!isset($jsFocusCode)) {
     $jsFocusCode = '$("select[name=album-id]").focus();';
 }
 // add js
-$pageData->addJs('/notes/res/uploadfilemulti/js/jquery.fileuploadmulti.min.js');
-$pageData->addJs('/notes/js/multifileupload-init.js');
+$pageData->addJs('res/uploadfilemulti/js/jquery.fileuploadmulti.min.js');
+$pageData->addJs('js/multifileupload-init.js');
 
 // set js focus script
 $pageData->addScriptCode($jsFocusCode);
